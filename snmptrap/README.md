@@ -57,7 +57,8 @@ echo mibs +/root/.snmp/mibs/IBM-DW-SAMPLE.mib > /etc/snmp/snmp.conf
 cp /etc/snmp/snmptrapd.conf /etc/snmp/snmptrapd.conf.backup.$_modifyTime
 echo traphandle default /tmp/lognotify IBM-DW-SAMPLE::nodeDown > /etc/snmp/snmptrapd.conf
 echo authCommunity log,execute,net public >> /etc/snmp/snmptrapd.conf
-
+#服务重启
+systemctl restart snmpd
 ```  
 
 ## 例子  
@@ -99,10 +100,12 @@ snmptrapd -f -d -c /etc/snmp/snmptrapd.conf -Lo
 *root@plus:~/snmp# snmptranslate IBM-DW-SAMPLE::nodeDownTest1 -On  
 .1.3.6.1.4.1.1000.1.1.1*  
 
-创建测试程序  
+#### snmpv2c
+
+创建snmpv2c版测试程序  
 
 ```
-cat > testTrap.c << eof
+cat > testTrapV2c.c << eof
 #include <net-snmp/net-snmp-config.h>
 #include <net-snmp/net-snmp-includes.h>
 #include <stdio.h>
@@ -149,7 +152,7 @@ SOCK_CLEANUP;
 return 0;
 }
 eof
-gcc testTrap.c -lnetsnmp && ./a.out
+gcc testTrapV2c.c -lnetsnmp && ./a.out
 cat /tmp/checkfile
 ```  
 
@@ -160,6 +163,70 @@ trap: IBM-DW-SAMPLE::nodeDown
 host: localhost.localdomain  
 ip: UDP: [127.0.0.1]:56931->[127.0.0.1]:162  
 vars: DISMAN-EVENT-MIB::sysUpTimeInstance = 0:2:00:14.98, SNMPv2-MIB::snmpTrapOID.0 = SNMPv2-SMI::enterprises.1000.1.1, SNMPv2-SMI::enterprises.1000.1.1.0 = "test0..... successfully", SNMPv2-SMI::enterprises.1000.1.1.1 = "test1..... successfully"*    
+
+#### snmpv3  
+
+创建snmpv3版测试程序  
+
+```
+cat > testTrapV3.c << eof
+#include <net-snmp/net-snmp-config.h>
+#include <net-snmp/net-snmp-includes.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main(void)
+{
+char peername[256],commu[256];
+init_snmp("myexample");
+struct snmp_session session;
+snmp_sess_init(&session);
+session.version = SNMP_VERSION_2c;
+strcpy(peername,"127.0.0.1:162");
+strcpy(commu,"public");
+session.peername = peername;
+session.community = (unsigned char*)commu;
+session.community_len = strlen(commu);
+netsnmp_session *ss = snmp_open(&session);
+oid objid_sysuptime[] = { 1, 3, 6, 1, 2, 1, 1, 3, 0 };
+oid objid_snmptrap[] = { 1, 3, 6, 1, 6, 3, 1, 1, 4, 1, 0 };
+oid objid_test[] = { 1, 3, 6, 1, 4, 1, 1000, 1, 1, 0 };//Test0:1.3.6.1.4.1.1000.1.1.0 Test1:1.3.6.1.4.1.1000.1.1.1
+netsnmp_pdu * pdu = NULL;
+in_addr_t addr;
+pdu = snmp_pdu_create(SNMP_MSG_TRAP2);
+long sysuptime = 0;
+char tempbuf[128];
+memset(tempbuf,0 ,sizeof(tempbuf));
+sysuptime = get_uptime();
+sprintf(tempbuf,"%ld",sysuptime);
+snmp_add_var(pdu, objid_sysuptime, sizeof(objid_sysuptime)/sizeof(oid), 't', tempbuf);
+snmp_add_var(pdu, objid_snmptrap, sizeof(objid_snmptrap)/sizeof(oid),'o',"IBM-DW-SAMPLE::nodeDown");
+snmp_add_var(pdu, objid_test, sizeof(objid_test)/sizeof(oid),'s',"test0..... successfully");
+size_t tmpOID_len = 10;
+oid tmpOID[10];
+snmp_parse_oid("IBM-DW-SAMPLE::nodeDownTest1", tmpOID, &tmpOID_len);
+snmp_add_var(pdu, tmpOID, sizeof(tmpOID)/sizeof(oid),'s',"test1..... successfully");
+if( !snmp_send(ss, pdu) )
+{
+printf("Send pdu error \n");
+}
+snmp_close(ss);
+snmp_shutdown( "myexample" );
+SOCK_CLEANUP;
+return 0;
+}
+eof
+gcc testTrapV3.c -lnetsnmp && ./a.out
+cat /tmp/checkfile
+```  
+
+输出结果  
+
+*root@plus:~# cat /tmp/checkfile  
+trap: IBM-DW-SAMPLE::nodeDown  
+host: localhost.localdomain  
+ip: UDP: [127.0.0.1]:56931->[127.0.0.1]:162  
+vars: DISMAN-EVENT-MIB::sysUpTimeInstance = 2:14:33:00.14, SNMPv2-MIB::snmpTrapOID.0 = SNMPv2-SMI::enterprises.1000.1.1, SNMPv2-SMI::enterprises.1000.1.1.0 = "test0..... successfully", SNMPv2-SMI::enterprises.1000.1.1.1 = "test1..... successfully"* 
 
 ### 测试TRAP是否能正常转发  
 

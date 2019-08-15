@@ -71,7 +71,9 @@ systemctl restart snmpd
 ```  
 ## 例子  
 
-### 测试v3版本是否能正常使用  
+### 测试lib库是否能正常使用  
+
+#### snmpv3  
 
 ```
 cat > testLibV3.c << eof
@@ -239,7 +241,7 @@ gcc testLibV3.c -lnetsnmp && ./a.out
 SNMPv2-MIB::sysDescr.0 = STRING: Linux plus 4.15.0-55-generic #60-Ubuntu SMP Tue Jul 2 18:22:20 UTC 2019 x86_64  
 value #1 is a string: Linux plus 4.15.0-55-generic #60-Ubuntu SMP Tue Jul 2 18:22:20 UTC 2019 x86_64*  
 
-### 测试v2c版本是否能正常使用  
+#### snmpv2c    
 
 ```
 cat > testLibV2c.c << eof
