@@ -177,16 +177,32 @@ cat > testTrapV3.c << eof
 #include <string.h>
 int main(void)
 {
+const char *our_v3_passphrase = "The Net-SNMP Demo Password";
 char peername[256],commu[256];
 init_snmp("myexample");
 struct snmp_session session;
 snmp_sess_init(&session);
-session.version = SNMP_VERSION_2c;
+session.version = SNMP_VERSION_3;
+session.securityName = strdup("MD5User");
+session.securityNameLen = strlen(session.securityName);
+session.securityLevel = 1;
+session.securityAuthProto = usmHMACMD5AuthProtocol;
+session.securityAuthProtoLen = sizeof(usmHMACMD5AuthProtocol)/sizeof(oid);
+session.securityAuthKeyLen = USM_AUTH_KU_LEN;
+if (generate_Ku(session.securityAuthProto,
+		session.securityAuthProtoLen,
+		(u_char *) our_v3_passphrase, strlen(our_v3_passphrase),
+		session.securityAuthKey,
+		&session.securityAuthKeyLen) != SNMPERR_SUCCESS) {
+	snmp_log(LOG_ERR, "Error generating Ku from authentication pass phrase. \n");
+	exit(1);
+}
+
 strcpy(peername,"127.0.0.1:162");
-strcpy(commu,"public");
+//strcpy(commu,"public");
 session.peername = peername;
-session.community = (unsigned char*)commu;
-session.community_len = strlen(commu);
+//session.community = (unsigned char*)commu;
+//session.community_len = strlen(commu);
 netsnmp_session *ss = snmp_open(&session);
 oid objid_sysuptime[] = { 1, 3, 6, 1, 2, 1, 1, 3, 0 };
 oid objid_snmptrap[] = { 1, 3, 6, 1, 6, 3, 1, 1, 4, 1, 0 };
@@ -206,6 +222,11 @@ size_t tmpOID_len = 10;
 oid tmpOID[10];
 snmp_parse_oid("IBM-DW-SAMPLE::nodeDownTest1", tmpOID, &tmpOID_len);
 snmp_add_var(pdu, tmpOID, sizeof(tmpOID)/sizeof(oid),'s',"test1..... successfully");
+
+u_char          tmp[SPRINT_MAX_LEN];
+int len = snmpv3_get_engineID(tmp, sizeof(tmp));
+pdu->securityEngineID = netsnmp_memdup(tmp, len);
+pdu->securityEngineIDLen = len;
 if( !snmp_send(ss, pdu) )
 {
 printf("Send pdu error \n");
