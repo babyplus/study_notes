@@ -27,4 +27,4 @@ for para in doc.paragraphs:
     para.paragraph_format.line_spacing = 1.5
     if (para.style.name == "First Paragraph"):
         para.style = "Body Text"
-    doc.save(r"{}/README.docx".format(target))
+doc.save(r"{}/README.docx".format(target))
