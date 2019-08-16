@@ -10,7 +10,8 @@ snmptrapd接收网络设备发出的trap,调用自定义的脚本处理trap或�
 
 * [snmptrapd配置](http://www.net-snmp.org/wiki/index.php/TUT:Configuring_snmptrapd)
 * [功能操作](http://www.net-snmp.org/wiki/index.php/TUT:SNMP)
-* [TRAP功能](https://blog.csdn.net/huntinux/article/details/80527190)  
+* [TRAP功能](https://blog.csdn.net/huntinux/article/details/80527190)
+* [SNMPv3_TRAPs](http://www.net-snmp.org/wiki/index.php/TUT:snmptrap_SNMPv3#SNMPv3_TRAPs)  
 
 ## 环境安装  
 
@@ -56,9 +57,12 @@ echo mibs +/root/.snmp/mibs/IBM-DW-SAMPLE.mib > /etc/snmp/snmp.conf
 #修改snmptrapd配置，增加对自定义类型PDU的处理 （指定由脚本/tmp/lognotify进行处理）
 cp /etc/snmp/snmptrapd.conf /etc/snmp/snmptrapd.conf.backup.$_modifyTime
 echo traphandle default /tmp/lognotify IBM-DW-SAMPLE::nodeDown > /etc/snmp/snmptrapd.conf
+#snmpv2： 对共同体为public进行记录处理转发
 echo authCommunity log,execute,net public >> /etc/snmp/snmptrapd.conf
-#服务重启
-systemctl restart snmpd
+#snmpv3：创建snmpV3用户MD5User并且进行记录处理转发
+echo authUser log,execute,net MD5User >> /etc/snmp/snmptrapd.conf
+echo 'createUser -e 0x0102030405 MD5User MD5 "The Net-SNMP Demo Password"' >> /etc/snmp/snmptrapd.conf
+
 ```  
 
 ## 例子  
@@ -152,6 +156,7 @@ SOCK_CLEANUP;
 return 0;
 }
 eof
+> /tmp/checkfile
 gcc testTrapV2c.c -lnetsnmp && ./a.out
 cat /tmp/checkfile
 ```  
@@ -179,30 +184,32 @@ int main(void)
 {
 const char *our_v3_passphrase = "The Net-SNMP Demo Password";
 char peername[256],commu[256];
+size_t ebuf_len = 32, eout_len = 0;
+u_char *ebuf = (u_char *)malloc(ebuf_len);
 init_snmp("myexample");
 struct snmp_session session;
 snmp_sess_init(&session);
 session.version = SNMP_VERSION_3;
 session.securityName = strdup("MD5User");
 session.securityNameLen = strlen(session.securityName);
-session.securityLevel = 1;
+session.securityLevel = 2;
 session.securityAuthProto = usmHMACMD5AuthProtocol;
 session.securityAuthProtoLen = sizeof(usmHMACMD5AuthProtocol)/sizeof(oid);
 session.securityAuthKeyLen = USM_AUTH_KU_LEN;
+snmp_hex_to_binary(&ebuf, &ebuf_len, &eout_len, 1, "0x0102030405");
+session.securityEngineID = ebuf;
+session.securityEngineIDLen = eout_len;
 if (generate_Ku(session.securityAuthProto,
-		session.securityAuthProtoLen,
-		(u_char *) our_v3_passphrase, strlen(our_v3_passphrase),
-		session.securityAuthKey,
-		&session.securityAuthKeyLen) != SNMPERR_SUCCESS) {
-	snmp_log(LOG_ERR, "Error generating Ku from authentication pass phrase. \n");
-	exit(1);
+session.securityAuthProtoLen,
+(u_char *) our_v3_passphrase, strlen(our_v3_passphrase),
+session.securityAuthKey,
+&session.securityAuthKeyLen) != SNMPERR_SUCCESS) {
+snmp_log(LOG_ERR, "Error generating Ku from authentication pass phrase. \n");
+exit(1);
 }
 
 strcpy(peername,"127.0.0.1:162");
-//strcpy(commu,"public");
 session.peername = peername;
-//session.community = (unsigned char*)commu;
-//session.community_len = strlen(commu);
 netsnmp_session *ss = snmp_open(&session);
 oid objid_sysuptime[] = { 1, 3, 6, 1, 2, 1, 1, 3, 0 };
 oid objid_snmptrap[] = { 1, 3, 6, 1, 6, 3, 1, 1, 4, 1, 0 };
@@ -223,20 +230,19 @@ oid tmpOID[10];
 snmp_parse_oid("IBM-DW-SAMPLE::nodeDownTest1", tmpOID, &tmpOID_len);
 snmp_add_var(pdu, tmpOID, sizeof(tmpOID)/sizeof(oid),'s',"test1..... successfully");
 
-u_char          tmp[SPRINT_MAX_LEN];
-int len = snmpv3_get_engineID(tmp, sizeof(tmp));
-pdu->securityEngineID = netsnmp_memdup(tmp, len);
-pdu->securityEngineIDLen = len;
+
 if( !snmp_send(ss, pdu) )
 {
 printf("Send pdu error \n");
 }
+free(ebuf);
 snmp_close(ss);
 snmp_shutdown( "myexample" );
 SOCK_CLEANUP;
 return 0;
 }
 eof
+> /tmp/checkfile
 gcc testTrapV3.c -lnetsnmp && ./a.out
 cat /tmp/checkfile
 ```  
@@ -281,7 +287,7 @@ snmptrapd -f -d -Lo 1622
 新建窗口执行测试程序  
 
 ```
-gcc testTrap.c -lnetsnmp && ./a.out
+gcc testTrapV2c.c -lnetsnmp && ./a.out
 ```  
 
 可观察到每个窗口下的程序都能接收snmptrap报文  
