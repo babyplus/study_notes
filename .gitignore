@@ -1,2 +1,6 @@
 *.docx
 *.confluence
+*.layout
+*.depend
+bin
+obj
