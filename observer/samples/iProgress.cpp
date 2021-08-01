@@ -1,7 +1,8 @@
+#include "tracker.h"
 #include "iProgress.h"
 #include <cstdio> 
 
 IProgress::~IProgress()
 {
-    printf("IProgress end\n");
+    TRACK("IProgress end");
 }
