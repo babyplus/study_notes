@@ -1,1 +1,2 @@
-g++ library.cpp application.cpp && ./a.out
+cpp=`ls *cpp`
+g++ $cpp && ./a.out

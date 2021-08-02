@@ -1,1 +1,2 @@
-g++ consoleNotifier.cpp fileSplitter.cpp iProgress.cpp main.cpp && ./a.out
+cpp=`ls *cpp`
+g++ $cpp && ./a.out
