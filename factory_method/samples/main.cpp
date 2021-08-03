@@ -7,13 +7,11 @@ int main()
     Factory* tft1 = new ToyFactory();
     Salesman* m1 = new Salesman(tft1);
     m1->order();
-    delete tft1;
     delete m1;
     TRACK("---------------------------");
     Factory* tft2 = new UnderwearFactory();
     Salesman* m2 = new Salesman(tft2);
     m2->order();
-    delete tft2;
     delete m2;
     return 0;
 }

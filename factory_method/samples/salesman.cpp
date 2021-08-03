@@ -8,6 +8,7 @@ Salesman::Salesman(Factory* factory):factory(factory)
 Salesman::~Salesman()
 {
     TRACK("end");
+    delete factory;
 }
 
 void Salesman::order()
