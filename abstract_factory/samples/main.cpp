@@ -1,3 +1,4 @@
+#include "delete.h"
 #include "greeFactory.h"
 #include "greeAircondition.h"
 #include "greeRemoteControl.h"
@@ -12,9 +13,9 @@ int main()
     IRemoteControl* gree_rc = gree_f->produce_remote_control();
     gree_rc->bind(gree_acd);
 
-    delete gree_f;
-    delete gree_acd;
-    delete gree_rc;
+    DELETE(gree_f);
+    DELETE(gree_acd);
+    DELETE(gree_rc);
 
     TRACK("-----------------------------------------------------");
 
@@ -23,9 +24,9 @@ int main()
     IRemoteControl* midea_rc = midea_f->produce_remote_control();
     midea_rc->bind(midea_acd);
 
-    delete midea_f;
-    delete midea_acd;
-    delete midea_rc;
+    DELETE(midea_f);
+    DELETE(midea_acd);
+    DELETE(midea_rc);
 
     return 0;
 }

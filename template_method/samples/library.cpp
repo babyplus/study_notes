@@ -28,10 +28,3 @@ void Library::run()
     do_step4();
     step5();
 }
-//int main()
-//{
-//    Library * l = new Library();
-//    l->run();
-//    delete l;
-//    return 0;
-//}

@@ -1,3 +1,4 @@
+#include "delete.h"
 #include "meal.h"
 #include "mealBuilder.h"
 #include "hamburg.h"
@@ -11,9 +12,9 @@ int main()
     Item* i1 = new Cala();
     mb->add(i0);
     mb->add(i1);
-    delete mb;
-    delete meal;
-    delete i0;
-    delete i1;
+    DELETE(mb);
+    DELETE(meal);
+    DELETE(i0);
+    DELETE(i1);
     return 0;
 }

@@ -1,3 +1,4 @@
+#include "delete.h"
 #include "factory.h"
 
 class Salesman

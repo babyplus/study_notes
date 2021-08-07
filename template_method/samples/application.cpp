@@ -1,3 +1,4 @@
+#include "delete.h"
 #include "application.h"
 
 Application::Application():Library()
@@ -24,7 +25,7 @@ int main()
 {
     Library * l = new Application();
     l->run();
-    delete l;
+    DELETE(l);
     return 0;
 }
 

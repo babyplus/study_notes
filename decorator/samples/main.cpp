@@ -1,3 +1,4 @@
+#include "delete.h"
 #include "fileStream.h"
 #include "cryptoStream.h"
 
@@ -14,8 +15,8 @@ int main()
     char buf2[10240] = {0};
     s2->read(1, buf2, sizeof(buf2));
     TRACK("delete s1");
-    delete s1;
+    DELETE(s1);
     TRACK("delete s2");
-    delete s2;
+    DELETE(s2);
     return 0;
 }
