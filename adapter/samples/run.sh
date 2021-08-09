@@ -1,2 +1,2 @@
 cpp=`ls *cpp`
-g++ $cpp && ./a.out
+g++ -I "../../common/" $cpp && ./a.out
