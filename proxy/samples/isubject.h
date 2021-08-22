@@ -1,7 +1,6 @@
 #ifndef __ISUBJECT__
 #define __ISUBJECT__
 #include "tracker.h"
-#include "delete.h"
 
 class ISubject
 {

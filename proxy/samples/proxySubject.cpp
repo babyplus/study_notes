@@ -13,7 +13,6 @@ ProxySubject::~ProxySubject()
 void ProxySubject::process()
 {
     TRACK("proxy...");
-    RealSubject* r = new RealSubject();
-    r->process();
-    DELETE(r);
+    RealSubject r = RealSubject();
+    r.process();
 }

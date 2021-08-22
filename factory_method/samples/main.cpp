@@ -4,14 +4,12 @@
 
 int main()
 {
-    Factory* tft1 = new ToyFactory();
-    Salesman* m1 = new Salesman(tft1);
-    m1->order();
-    DELETE(m1);
+    ToyFactory tft = ToyFactory();
+    Salesman m1 = Salesman(&tft);
+    m1.order();
     TRACK("---------------------------");
-    Factory* tft2 = new UnderwearFactory();
-    Salesman* m2 = new Salesman(tft2);
-    m2->order();
-    DELETE(m2);
+    UnderwearFactory uwft = UnderwearFactory();
+    Salesman m2 = Salesman(&uwft);
+    m2.order();
     return 0;
 }

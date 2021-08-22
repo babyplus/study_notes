@@ -3,10 +3,8 @@
 
 int main()
 {
-    ProxySubject* proxy = new ProxySubject();
-    Client* client = new Client(proxy);
-    client->do_task();
-    DELETE(client);
-    DELETE(proxy);
+    ProxySubject proxy = ProxySubject();
+    Client client = Client(&proxy);
+    client.do_task();
     return 0;
 }
