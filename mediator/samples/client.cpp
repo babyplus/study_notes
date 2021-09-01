@@ -13,7 +13,8 @@ Client::~Client()
 void Client::subscribe(IObject* ob)
 {
     TRACK();
-    add_peer(this);
+    add_peer(ob);
+    ob->add_peer(this);
 }
 
 void Client::publish(std::string& message)
@@ -24,4 +25,3 @@ void Client::publish(std::string& message)
         peer->recieve(message);
     }
 }
-
