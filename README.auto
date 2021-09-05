@@ -1,0 +1,1 @@
+ls -l |grep -E '^d' | grep -v common | awk '{print "cat "$9 "/README.md; echo; echo \\#\\# 例子  ;echo ; echo " "\\["$9"\\]\\("$9"/samples\\)  ;echo ;" }'   |bash > README.md
