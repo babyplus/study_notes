@@ -1,0 +1,75 @@
+---
+C/C++:
+    语言:
+        对象生命周期，垃圾回收:
+        标准库:
+        错误与异常处理:
+        日志分析，断点调试:
+        gdb使用:
+        面向对象:
+        设计模式:
+    数据结构与算法:
+        链表，队列，栈:
+        二叉树，红黑树:
+        b树，b+树:
+        dijkstra算法，最小生成树:
+        递归:
+        排序 希尔，归并，快排，堆排序:
+        贪心算法，动态规划:
+        跳表，散列表，hash，布隆过滤器:
+    数据库:
+        持久化mysql:
+            mysql安装与配置:
+            sql建表，索引，存储过程:
+            存储引擎 myisam/innodb:
+            数据库连接池:
+            异步数据库请求:
+            数据库集群，分库分表，读写分离:
+        缓存redis:
+            redis编译安装配置:
+            redis命令使用:
+            redis连接池/异步redis做法:
+            redis集群，数据备份:
+            缓存雪崩，缓存击穿:
+    网络原理:
+        ping/telnet/ifconfig:
+        网络体系模型:
+        tcp:
+        udp:
+        http/https/http2.0/http3.0:
+        session cookie application:
+        网络安全，加密，数字签名:
+        wireshark/tcpdump:
+        iperf:
+    操作系统:
+        文件操作，系统操作:
+        程序编译，运行:
+        shell/vim的使用:
+        Linux系统性能监控参数ps/netstat/df:
+        进程管理:
+        用户态/内核态:
+        内存管理，内存池:
+        磁盘文件系统，虚拟文件系统:
+    网络编程:
+        socket编程，tcp/udp:
+        网络io模型，阻塞非阻塞，同步异步:
+        io多路复用 select/poll/epoll:
+        time_wait/close_wait:
+        C10K/C1000K/C10M:
+        网络框架 libevent/libev，协程 ntyco/libco:
+    分布式:
+        rpc/grpc/tars/brpc/srpc:
+        简单rpc协议设计/框架搭建:
+        协议传输的时候，序列化反序列号:
+        服务注册，服务发现:
+        容灾，降级熔断，流控制:
+        高并发，高可用:
+    云原生:
+        腾讯云、阿里云:
+        docker:
+        k8s:
+    软技能:
+        沟通:
+        组织:
+        协调:
+        需求分析:
