@@ -1,10 +1,10 @@
 # CLI举例：通过Telnet登录CLI界面（本地认证）  
 
-## 组网需求  
+## 需求  
 
 管理员可以通过Telnet登录到CLI界面对FW进行管理和维护。FW对管理员进行本地认证。  
 
-## 数据规划  
+### 规划  
 
 |项目|数据|说明|
 |----|----|----|
@@ -12,9 +12,9 @@
 |自动锁定的验证失败次数|2次|默认为3次|
 |自动锁定的时间|10分钟|默认为30分钟|
 |帐号密码|vtyadmin Huawei@123||
-|IP|192.168.7.7/24||
+|IP|192.0.1.1/24||
 
-## 思路  
+### 思路  
 
 1. 开启Telnet
 2. 配置接口
@@ -22,13 +22,13 @@
 4. 配置管理员
 5. 配置ip并验证
 
-## 操作  
+### 操作  
 
 ```
 
 telnet server enable
 interface GigabitEthernet 0/0/0
-ip address 192.168.7.7 255.255.255.0
+ip address 192.0.1.1 255.255.255.0
 service-manage telnet permit
 firewall zone trust
 add interface GigabitEthernet 0/0/0
