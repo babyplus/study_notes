@@ -1,0 +1,17 @@
+- LNS:
+  - 接口配置:
+    - 接口号: "GigabitEthernet1/0/0"
+      ip: "1.1.1.1/24"
+      安全区域: "untrust"
+    - 接口号: "GigabitEthernet1/0/1"
+      ip: "10.1.1.1/24"
+      安全区域: "trust"
+  - l2tp配置:
+    - 对端隧道名称: "test_client"
+      隧道验证密码: "Hello123"
+      用户名: "user0001"
+      密码: "Password123"
+      地址池pool: "172.16.1.2～172.16.1.100"
+- 移动办公用户:
+  - 用户名: user0001
+    密码: Pa55word0001
