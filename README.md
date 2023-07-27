@@ -74,7 +74,30 @@ Each segment is represented by an 8-byte Segment Descriptor that describes the s
 
 ### 分段单元 Segmentation Unit
 
+* Examines the TI field of the Segment Selector
+* Computes the address of the Segment Descriptor from the index field of the Segment Selector
+* Adds the offset of the logical address to the Base field of the Segment Descriptor, thus obtaining the linear address.
+
+* 检查段选择器的Tl字段
+* 从段选择器的索引字段计算段描述符的地址
+* 将逻辑地址的偏移量添加到段描述符的Base字段，从而获得线性地址。
+
 ## 系统中的分段 Segmentation in Linux
+
+四个主要的Linux段：
+
+* 用户代码段 __USER_CS
+* 用户数据段 __USER_DS
+* 内核代码段 __KERNEL_CS
+* 内核数据段 __KERNEL_DS
+
+The linear addresses associated with such segments all start at 0 and reach the addressing limit. This means that all processes, either in User Mode or in Kernel Mode, may use the same logical addresses. Another consequence is logical addresses coincide with linear addresses.
+
+所有段都是从0x00000000开始的，意味着在用户态或系统态下的所有进程可以使用相同的逻辑地址并且逻辑地址与线性地址是一致的。
+
+### The Linux GDT
+
+### The Linux LDTs
 
 ## 硬件中的分页 Paging in Hardware
 
