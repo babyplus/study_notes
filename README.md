@@ -74,13 +74,9 @@ Each segment is represented by an 8-byte Segment Descriptor that describes the s
 
 ### 分段单元 Segmentation Unit
 
-* Examines the TI field of the Segment Selector
-* Computes the address of the Segment Descriptor from the index field of the Segment Selector
-* Adds the offset of the logical address to the Base field of the Segment Descriptor, thus obtaining the linear address.
+Examines the TI field of the Segment Selector;Computes the address of the Segment Descriptor from the index field of the Segment Selector;Adds the offset of the logical address to the Base field of the Segment Descriptor, thus obtaining the linear address.
 
-* 检查段选择器的Tl字段
-* 从段选择器的索引字段计算段描述符的地址
-* 将逻辑地址的偏移量添加到段描述符的Base字段，从而获得线性地址。
+检查段选择器的Tl字段;从段选择器的索引字段计算段描述符的地址;将逻辑地址的偏移量添加到段描述符的Base字段，从而获得线性地址。
 
 ## 系统中的分段 Segmentation in Linux
 
@@ -97,7 +93,62 @@ The linear addresses associated with such segments all start at 0 and reach the 
 
 ### The Linux GDT
 
+In uniprocessor systems there is only one GDT, while in multiprocessor systems there is one GDT for every CPU in the system. Each GDT includes 18 segment descriptors and 14 null,unused,or reserved entries.
+
+在单处理器系统中只有一个GDT，而在多处理器系统中每个CPU对应一个GDT。每个GDT包含18个段描述符和14个空的、未使用的、或保留的项。
+
+* null 0x0
+* reserved
+* reserved
+* reserved
+* not used
+* not used
+* TLS #1 0x33
+* TLS #2 0x3b
+* TLS #3 0x43
+* reserved
+* reserved
+* reserved
+* kernel code 0x60 __KERNEL_CS
+* kernel data 0x68 __KERNEL_DS
+* user code 0x73 __USER_CS
+* user data 0x7b __USER_DS
+* TSS 0x80
+* LDT 0x88
+* PNPBIOS 32-bit code 0x90
+* PNPBIOS 16-bit code 0x98
+* PNPBIOS 16-bit code 0xa0
+* PNPBIOS 16-bit code 0xa8
+* PNPBIOS 16-bit code 0xb0
+* APMBIOA 32-bit code 0xb8
+* APMBIOA 16-bit code 0xc0
+* APMBIOA data 0xc8
+* not used
+* not used
+* not used
+* not used
+* not used
+* double fault TSS 0xf8
+
+#### 四个用户态和内核态下的代码段和数据段 Four user and kernel code and data segments
+
+#### 一个任务状态段 A Task State Segment
+
+#### 一个包含缺省局部描述符表的段 A segment including the default LDT
+
+#### 三个局部线程存储段 Three Thread-Local Storage segments
+
+#### 三个与高级电源管理（APM）相关的段 Three segments related to Advanced Power Management
+
+#### 五个与即插即用（PnP）功能的BIOS服务程序相关的段 Five segments related to Plug and Play BIOS services.
+
+#### 一个被内核用来处理“双重错误”异常的特殊TSS段 A special TSS segment used by the kernel to handle "Double Fault" exceptions
+
 ### The Linux LDTs
+
+Most Linux User Mode applications do not make use of a LDT, thus the kernel defines a default LDT to be shared by most processes.
+
+大多数用户态下的Linux程序不使用局部描述符表，这样内核就定义了一个缺省的LDT供大多数进程共享。
 
 ## 硬件中的分页 Paging in Hardware
 
