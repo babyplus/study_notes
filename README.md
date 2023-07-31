@@ -94,3 +94,13 @@ setup()汇编语言函数的代码由链接程序放在内核映像文件的偏�
 * 跳转到start_kernel()函数
 
 ## start_kernel()
+
+* 调用sched_init()函数来初始化调度程序
+* 调用build_all_zonelists()函数来初始化内存管理区
+* 调用page_alloc_init()函数来初始化伙伴系统分配程序
+* 调用trap_init()函数和init_IRQ()函数以完成IDT初始化
+* 调用softirq_init()函数初始化TASKLET_SOFTIRQ和HI_SOFTIRQ
+* 调用time_init()函数来初始化系统日期和时间
+* 调用kmem_cache_init()函数来初始化slab分配器
+* 调用calibrate_delay()函数以确定CPU时钟的速度
+* 调用kernel_thread()函数为进程1创建内核线程
