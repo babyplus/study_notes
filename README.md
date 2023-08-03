@@ -489,7 +489,7 @@ struct task_struct:
   
 ```
 
-### CONFIG_THREAD_INFO_IN_TASK
+* CONFIG_THREAD_INFO_IN_TASK
 
 ```
 config THREAD_INFO_IN_TASK
@@ -507,7 +507,7 @@ config THREAD_INFO_IN_TASK
 
 需要做的一个细微的改变是在save_thread_stack_tsk()和get_wchan()中使用try_get_task_stack()和put_task_stack()。
 
-### CONFIG_PREEMPT_RT
+* CONFIG_PREEMPT_RT
 
 ```
 config PREEMPT_RT
@@ -532,7 +532,7 @@ config PREEMPT_RT
 
 如果您正在为需要实时保证的系统构建内核，请选择此选项。
 
-### CONFIG_SMP
+* CONFIG_SMP
 
 ```
 config SMP
@@ -541,7 +541,7 @@ config SMP
 	default n
 ```
 
-### CONFIG_SCHED_CORE
+* CONFIG_SCHED_CORE
 
 ```
 config SCHED_CORE
@@ -571,7 +571,7 @@ config SCHED_CORE
 
 SCHED_CORE默认是禁用的。当它被启用和未使用时(这是Linux发行版可能使用的情况)，应该不会对性能产生可测量的影响。
 
-### CONFIG_CGROUP_SCHED
+* CONFIG_CGROUP_SCHED
 
 ```
 menuconfig CGROUP_SCHED
@@ -585,7 +585,7 @@ menuconfig CGROUP_SCHED
 
 这个特性允许CPU调度器识别任务组并控制分配给这些任务组的CPU带宽。它使用cgroups对任务进行分组。
 
-### CONFIG_UCLAMP_TASK
+* CONFIG_UCLAMP_TASK
 
 ```
 config UCLAMP_TASK
@@ -613,14 +613,14 @@ config UCLAMP_TASK
 
 最小和最大利用率箝位值都是对调度器的提示，旨在改进其频率选择策略，但它们不会为任务强制或授予任何特定带宽。
 
-### CONFIG_PREEMPT_NOTIFIERS
+* CONFIG_PREEMPT_NOTIFIERS
 
 ```
 config PREEMPT_NOTIFIERS
 	bool
 ```
 
-### CONFIG_BLK_DEV_IO_TRACE
+* CONFIG_BLK_DEV_IO_TRACE
 
 ```
 config BLK_DEV_IO_TRACE
@@ -651,7 +651,7 @@ config BLK_DEV_IO_TRACE
 
 如果您希望能够跟踪给定队列上的块层动作，则在这里输入Y。跟踪允许您查看在块设备队列上发生的任何流量。
 
-### CONFIG_PREEMPT_RCU
+* CONFIG_PREEMPT_RCU
 
 ```
 config PREEMPT_RCU
@@ -670,7 +670,7 @@ config PREEMPT_RCU
 
 该选项选择的RCU实现是为拥有数百或数千个cpu的大型SMP系统设计的，但也需要实时响应。它也可以很好地缩小到更小的系统。
 
-### CONFIG_TASKS_RCU
+* CONFIG_TASKS_RCU
 
 ```
 config TASKS_RCU
@@ -679,7 +679,7 @@ config TASKS_RCU
 	select IRQ_WORK
 ```
 
-### CONFIG_TASKS_TRACE_RCU
+* CONFIG_TASKS_TRACE_RCU
 
 ```
 config TASKS_TRACE_RCU
@@ -688,13 +688,13 @@ config TASKS_TRACE_RCU
 	select IRQ_WORK
 ```
 
-### TIF_RESTORE_SIGMASK
+* TIF_RESTORE_SIGMASK
 
 ```
 
 ```
 
-### CONFIG_LRU_GEN
+* CONFIG_LRU_GEN
 
 ```
 config LRU_GEN
@@ -707,7 +707,7 @@ config LRU_GEN
 	  Documentation/admin-guide/mm/multigen_lru.rst for details.
 ```
 
-### CONFIG_COMPAT_BRK
+* CONFIG_COMPAT_BRK
 
 ```
 config COMPAT_BRK
@@ -727,7 +727,7 @@ config COMPAT_BRK
 
 该选项将启动默认设置更改为禁用堆随机化，并且可以在运行时通过将/proc/sys/kernel/randomize_va_space设置为2来覆盖。
 
-### CONFIG_CGROUPS
+* CONFIG_CGROUPS
 
 ```
 menuconfig CGROUPS
@@ -747,7 +747,7 @@ menuconfig CGROUPS
 
 该选项增加了对进程集分组的支持，以便与进程控制子系统(如Cpusets、CFS、内存控制或设备隔离)一起使用。
 
-### CONFIG_BLK_CGROUP
+* CONFIG_BLK_CGROUP
 
 ```
 config BLK_CGROUP
@@ -779,7 +779,7 @@ config BLK_CGROUP
 
 此选项仅启用通用块IO控制器基础结构。还需要启用实际的IO控制逻辑/策略。配置CONFIG_BFQ_GROUP_IOSCHED=y;设置“CONFIG_BLK DEV_THROTTLING=y”，开启节流策略。
 
-### CONFIG_PSI
+* CONFIG_PSI
 
 ```
 config PSI
@@ -808,7 +808,7 @@ config PSI
 
 在支持cgroup的内核中，cgroups(仅cgroup2)将拥有cpu。压力,记忆。压强和io。压力文件，仅为分组任务聚合压力档。
 
-### CONFIG_PAGE_OWNER
+* CONFIG_PAGE_OWNER
 
 ```
 config PAGE_OWNER
@@ -831,7 +831,7 @@ config PAGE_OWNER
 
 这可以跟踪哪个调用链是页面的所有者，可能有助于找到裸alloc_page(s)泄漏。即使在构建中包含此功能，默认情况下它也是禁用的。您应该将“page_owner=on”传递给启动参数以启用它。
 
-### CONFIG_EVENTFD
+* CONFIG_EVENTFD
 
 ```
 config EVENTFD
@@ -846,7 +846,7 @@ config EVENTFD
 
 启用eventfd()系统调用，允许接收内核通知(即.KAIO)或用户空间通知。
 
-### CONFIG_IOMMU_SVA
+* CONFIG_IOMMU_SVA
 
 ```
 # Shared Virtual Addressing
@@ -856,7 +856,7 @@ config IOMMU_SVA
 
 共享虚拟寻址。
 
-### CONFIG_CPU_SUP_INTEL
+* CONFIG_CPU_SUP_INTEL
 
 ```
 config CPU_SUP_INTEL
@@ -877,7 +877,7 @@ config CPU_SUP_INTEL
 
 如果您希望内核在Intel CPU上运行，则需要启用此功能。在其他类型的cpu上禁用此选项使内核变小一点。在Intel CPU上禁用它可能会导致内核无法启动。
 
-### CONFIG_TASK_DELAY_ACCT
+* CONFIG_TASK_DELAY_ACCT
 
 ```
 config TASK_DELAY_ACCT
@@ -895,7 +895,7 @@ config TASK_DELAY_ACCT
 
 收集任务等待系统资源(如cpu、同步块I/O完成和页面交换)所花费的时间信息。这样的统计数据可以帮助设置任务相对于其他任务的优先级，如cpu、io、rss限制等。
 
-### CONFIG_STACKPROTECTOR
+* CONFIG_STACKPROTECTOR
 
 ```
 config STACKPROTECTOR
@@ -931,14 +931,14 @@ config STACKPROTECTOR
 
 在x86“defconfig”构建中，该特性将canary检查添加到大约3%的内核函数中，从而使内核代码大小增加了大约0.3%。
 
-### CONFIG_ARCH_HAS_SCALED_CPUTIME
+* CONFIG_ARCH_HAS_SCALED_CPUTIME
 
 ```
 config ARCH_HAS_SCALED_CPUTIME
 	bool
 ```
 
-### CONFIG_VIRT_CPU_ACCOUNTING_GEN
+* CONFIG_VIRT_CPU_ACCOUNTING_GEN
 
 ```
 config VIRT_CPU_ACCOUNTING_GEN
@@ -965,7 +965,7 @@ config VIRT_CPU_ACCOUNTING_GEN
 
 目前，这只在从事完整的动态子系统开发时才有用。
 
-### CONFIG_NO_HZ_FULL
+* CONFIG_NO_HZ_FULL
 
 ```
 config NO_HZ_FULL
@@ -1002,7 +1002,7 @@ config NO_HZ_FULL
 
 您需要用所需的动态cpu范围填充nohz_full boot参数来使用它。这是以用户<->内核转换中的一些开销为代价实现的:系统调用、异常和中断。
 
-### CONFIG_POSIX_CPU_TIMERS_TASK_WORK
+* CONFIG_POSIX_CPU_TIMERS_TASK_WORK
 
 ```
 # Select to handle posix CPU timers from task_work
@@ -1017,7 +1017,7 @@ config POSIX_CPU_TIMERS_TASK_WORK
 
 选择从task_work处理posix CPU定时器，而不是从定时器中断上下文处理
 
-### CONFIG_KEYS
+* CONFIG_KEYS
 
 ```
 config KEYS
@@ -1045,7 +1045,7 @@ config KEYS
 
 此外，有一种特殊类型的密钥可用来充当密匙环:一个可搜索的密钥序列。每个进程都配备了对五个标准密匙环的访问权限:特定于uid、特定于gid、会话、进程和线程。
 
-### CONFIG_SYSVIPC
+* CONFIG_SYSVIPC
 
 ```
 config SYSVIPC
@@ -1066,7 +1066,7 @@ config SYSVIPC
 
 进程间通信是一套库函数和系统调用，它让进程(运行的程序)同步和交换信息。它通常被认为是一件好事，除非您在这里输入Y，否则一些程序将无法运行。
 
-### CONFIG_DETECT_HUNG_TASK
+* CONFIG_DETECT_HUNG_TASK
 
 ```
 config DETECT_HUNG_TASK
@@ -1087,7 +1087,7 @@ config DETECT_HUNG_TASK
 
 当检测到挂起的任务时，内核将打印当前堆栈跟踪(您应该报告)，但任务将保持不可中断状态。如果启用了lockdep，那么还将报告所有持有的锁。此功能的开销可以忽略不计。
 
-### CONFIG_IO_URING
+* CONFIG_IO_URING
 
 ```
 config IO_URING
@@ -1102,7 +1102,7 @@ config IO_URING
 
 该选项支持io_uring接口，使应用程序能够通过内核和应用程序之间共享的提交和完成环提交和完成IO。
 
-### CONFIG_AUDIT
+* CONFIG_AUDIT
 
 ```
 config AUDIT
@@ -1117,7 +1117,7 @@ config AUDIT
 
 启用可以与另一个内核子系统一起使用的审计基础设施，比如SELinux(它需要这个来记录avc消息输出)。系统调用审计包含在支持它的体系结构中。
 
-### CONFIG_RT_MUTEXES
+* CONFIG_RT_MUTEXES
 
 ```
 config RT_MUTEXES
@@ -1125,7 +1125,7 @@ config RT_MUTEXES
 	default y if PREEMPT_RT
 ```
 
-### CONFIG_DEBUG_MUTEXES
+* CONFIG_DEBUG_MUTEXES
 
 ```
 config DEBUG_MUTEXES
@@ -1138,7 +1138,7 @@ config DEBUG_MUTEXES
 
 该特性允许检测和报告互斥锁语义违反。
 
-### CONFIG_DEBUG_ATOMIC_SLEEP
+* CONFIG_DEBUG_ATOMIC_SLEEP
 
 ```
 config DEBUG_ATOMIC_SLEEP
@@ -1155,7 +1155,7 @@ config DEBUG_ATOMIC_SLEEP
 
 如果你在这里说Y，各种可能休眠的例程将变得非常嘈杂，如果它们在原子段内被调用:当一个自旋锁被持有时，在一个rcu读侧临界区内，在抢占禁用段内，在中断中，等等…
 
-### CONFIG_TRACE_IRQFLAGS
+* CONFIG_TRACE_IRQFLAGS
 
 ```
 config TRACE_IRQFLAGS
@@ -1168,7 +1168,7 @@ config TRACE_IRQFLAGS
 
 使钩子能够中断跟踪或锁调试的启用和禁用。
 
-### CONFIG_LOCKDEP
+* CONFIG_LOCKDEP
 
 ```
 config LOCKDEP
@@ -1179,7 +1179,7 @@ config LOCKDEP
 	select KALLSYMS_ALL
 ```
 
-### CONFIG_UBSAN
+* CONFIG_UBSAN
 
 ```
 menuconfig UBSAN
@@ -1193,7 +1193,7 @@ menuconfig UBSAN
 
 此选项启用未定义行为完整性检查器。编译时插装用于在运行时检测各种未定义行为。
 
-### CONFIG_COMPACTION
+* CONFIG_COMPACTION
 
 ```
 # support for memory compaction
@@ -1215,7 +1215,7 @@ config COMPACTION
 
 压缩是唯一能够可靠地形成高阶(较大的物理连续)内存块的内存管理组件。页面分配器严重依赖于压缩，缺少该特性可能会导致对高阶内存请求的意外的OOM杀手级调用。
 
-### CONFIG_TASK_XACCT
+* CONFIG_TASK_XACCT
 
 ```
 config TASK_XACCT
@@ -1230,7 +1230,7 @@ config TASK_XACCT
 
 收集扩展任务记帐数据，并将数据发送到userland，以便通过taskstats接口进行处理。
 
-### CONFIG_CPUSETS
+* CONFIG_CPUSETS
 
 ```
 config CPUSETS
@@ -1247,7 +1247,7 @@ config CPUSETS
 
 该选项允许您创建和管理cpuset，它允许动态地将系统划分为cpu和内存节点集，并分配只在这些集内运行的任务。这主要用于大型SMP或NUMA系统。
 
-### CONFIG_X86_CPU_RESCTRL
+* CONFIG_X86_CPU_RESCTRL
 
 ```
 config X86_CPU_RESCTRL
@@ -1278,7 +1278,7 @@ config X86_CPU_RESCTRL
 
 AMD将此称为AMD平台服务质量(AMD QoS)。有关AMD QoS的更多信息可以在AMD64技术平台服务质量扩展手册中找到。
 
-### CONFIG_FUTEX
+* CONFIG_FUTEX
 
 ```
 config FUTEX
@@ -1294,7 +1294,7 @@ config FUTEX
 
 禁用此选项将导致内核在构建时不支持“快速用户空间互斥”。生成的内核可能无法正确运行基于glibc的应用程序。
 
-### CONFIG_PERF_EVENTS
+* CONFIG_PERF_EVENTS
 
 ```
 config PERF_EVENTS
@@ -1334,7 +1334,7 @@ config PERF_EVENTS
 
 Linux性能事件子系统提供了这些软件和硬件事件功能的抽象，可以通过系统调用获得，并由tools/perf/中的“perf”实用程序使用。它提供了每个任务和每个CPU计数器，并在这些计数器之上提供了事件功能。
 
-### CONFIG_DEBUG_PREEMPT
+* CONFIG_DEBUG_PREEMPT
 
 ```
 config DEBUG_PREEMPT
@@ -1353,7 +1353,7 @@ config DEBUG_PREEMPT
 
 调试可抢占内核
 
-### CONFIG_NUMA
+* CONFIG_NUMA
 
 ```
 config NUMA
@@ -1380,7 +1380,7 @@ config NUMA
 
 启用NUMA(非统一内存访问)支持。
 
-### CONFIG_NUMA_BALANCING
+* CONFIG_NUMA_BALANCING
 
 ```
 config NUMA_BALANCING
@@ -1398,7 +1398,7 @@ config NUMA_BALANCING
 
 该选项增加了对自动NUMA感知内存/任务放置的支持。该机制非常原始，并且基于对运行任务的节点有引用时迁移内存。
 
-### CONFIG_RSEQ
+* CONFIG_RSEQ
 
 ```
 config RSEQ
@@ -1418,179 +1418,481 @@ config RSEQ
 
 启用可重启序列系统调用。它为当前CPU数值提供了一个用户空间缓存，从而加快了从用户空间获取当前CPU数值的速度，还提供了一个ABI来加快用户空间对每个CPU数据的操作。
 
-### CONFIG_SCHED_MM_CID
+* CONFIG_SCHED_MM_CID
+
+```
+config SCHED_MM_CID
+	def_bool y
+	depends on SMP && RSEQ
+```
+
+* CONFIG_TASK_DELAY_ACCT
+
+```
+config TASK_DELAY_ACCT
+	bool "Enable per-task delay accounting"
+	depends on TASKSTATS
+	select SCHED_INFO
+	help
+	  Collect information on time spent by a task waiting for system
+	  resources like cpu, synchronous block I/O completion and swapping
+	  in pages. Such statistics can help in setting a task's priorities
+	  relative to other tasks for cpu, io, rss limits etc.
+
+	  Say N if unsure.
+```
+
+收集任务等待系统资源(如cpu、同步块I/O完成和页面交换)所花费的时间信息。这样的统计数据可以帮助设置任务相对于其他任务的优先级，如cpu、io、rss限制等。
+
+* CONFIG_FAULT_INJECTION
+
+```
+config F2FS_FAULT_INJECTION
+	bool "F2FS fault injection facility"
+	depends on F2FS_FS
+	help
+	  Test F2FS to inject faults such as ENOMEM, ENOSPC, and so on.
+
+	  If unsure, say N.
 
 ```
 
-```
+测试F2FS注入错误，如ENOMEM、ENOSPC等。
 
-### CONFIG_TASK_DELAY_ACCT
-
-```
+* CONFIG_LATENCYTOP
 
 ```
-
-### CONFIG_FAULT_INJECTION
-
+config LATENCYTOP
+	bool "Latency measuring infrastructure"
+	depends on DEBUG_KERNEL
+	depends on STACKTRACE_SUPPORT
+	depends on PROC_FS
+	depends on FRAME_POINTER || MIPS || PPC || S390 || MICROBLAZE || ARM || ARC || X86
+	select KALLSYMS
+	select KALLSYMS_ALL
+	select STACKTRACE
+	select SCHEDSTATS
+	help
+	  Enable this option if you want to use the LatencyTOP tool
+	  to find out which userspace is blocking on what kernel operations.
 ```
 
-```
+如果您希望使用LatencyTOP工具来查找哪个用户空间阻塞了哪些内核操作，请启用此选项。
 
-### CONFIG_LATENCYTOP
-
-```
+* CONFIG_KASAN_GENERIC
 
 ```
+config KASAN_GENERIC
+	bool "Generic KASAN"
+	depends on HAVE_ARCH_KASAN && CC_HAS_KASAN_GENERIC
+	depends on CC_HAS_WORKING_NOSANITIZE_ADDRESS
+	select SLUB_DEBUG if SLUB
+	select CONSTRUCTORS
+	help
+	  Enables Generic KASAN.
 
-### CONFIG_KASAN_GENERIC
+	  Requires GCC 8.3.0+ or Clang.
 
+	  Consumes about 1/8th of available memory at kernel start and adds an
+	  overhead of ~50% for dynamic allocations.
+	  The performance slowdown is ~x3.
+
+	  (Incompatible with CONFIG_DEBUG_SLAB: the kernel does not boot.)
 ```
 
-```
-
-### CONFIG_KCSAN
+* CONFIG_KCSAN
 
 ```
+menuconfig KCSAN
+	bool "KCSAN: dynamic data race detector"
+	depends on HAVE_ARCH_KCSAN && HAVE_KCSAN_COMPILER
+	depends on DEBUG_KERNEL && !KASAN
+	select CONSTRUCTORS
+	select STACKTRACE
+	help
+	  The Kernel Concurrency Sanitizer (KCSAN) is a dynamic
+	  data-race detector that relies on compile-time instrumentation.
+	  KCSAN uses a watchpoint-based sampling approach to detect races.
 
-```
+	  While KCSAN's primary purpose is to detect data races, it
+	  also provides assertions to check data access constraints.
+	  These assertions can expose bugs that do not manifest as
+	  data races.
 
-### CONFIG_KMSAN
-
-```
-
-```
-
-### IS_ENABLED(CONFIG_KUNIT)
-
-```
-
-```
-
-### CONFIG_FUNCTION_GRAPH_TRACER
-
-```
-
-```
-
-### CONFIG_TRACING
-
-```
-
-```
-
-### CONFIG_KCOV
-
-```
-
-```
-
-### CONFIG_MEMCG
-
-```
-
-```
-
-### CONFIG_BLK_CGROUP
+	  See <file:Documentation/dev-tools/kcsan.rst> for more details.
 
 ```
 
-```
+内核并发消毒器(KCSAN)是一种依赖于编译时检测的动态数据竞争检测器。KCSAN使用基于观察点的抽样方法来检测竞争。
 
-### CONFIG_UPROBES
+虽然KCSAN的主要目的是检测数据竞争，但它也提供断言来检查数据访问约束。这些断言可以暴露不表现为数据竞争的错误。
 
-```
-
-```
-
-### CONFIG_BCACHE
+* CONFIG_KMSAN
 
 ```
+config KMSAN
+	bool "KMSAN: detector of uninitialized values use"
+	depends on HAVE_ARCH_KMSAN && HAVE_KMSAN_COMPILER
+	depends on SLUB && DEBUG_KERNEL && !KASAN && !KCSAN
+	depends on !PREEMPT_RT
+	select STACKDEPOT
+	select STACKDEPOT_ALWAYS_INIT
+	help
+	  KernelMemorySanitizer (KMSAN) is a dynamic detector of uses of
+	  uninitialized values in the kernel. It is based on compiler
+	  instrumentation provided by Clang and thus requires Clang to build.
 
+	  An important note is that KMSAN is not intended for production use,
+	  because it drastically increases kernel memory footprint and slows
+	  the whole system down.
+
+	  See <file:Documentation/dev-tools/kmsan.rst> for more details.
 ```
 
-### CONFIG_DEBUG_ATOMIC_SLEEP
+kernelmemorysaniizer (KMSAN)是一个动态检测器，用于检测内核中未初始化值的使用情况。
+
+它基于Clang提供的编译器工具，因此需要Clang来构建。需要注意的是，KMSAN不适合用于生产环境，因为它会极大地增加内核内存占用并降低整个系统的速度。
+
+* IS_ENABLED(CONFIG_KUNIT)
 
 ```
-
+menuconfig KUNIT
+	tristate "KUnit - Enable support for unit tests"
+	select GLOB if KUNIT=y
+	help
+	  Enables support for kernel unit tests (KUnit), a lightweight unit
+	  testing and mocking framework for the Linux kernel. These tests are
+	  able to be run locally on a developer's workstation without a VM or
+	  special hardware when using UML. Can also be used on most other
+	  architectures. For more information, please see
+	  Documentation/dev-tools/kunit/.
 ```
 
-### CONFIG_MMU
+支持内核单元测试(KUnit)，这是一个用于Linux内核的轻量级单元测试和模拟框架。当使用UML时，这些测试能够在开发人员的工作站上本地运行，而不需要VM或特殊硬件。也可以在大多数其他架构上使用。更多信息，请参见Documentation/dev-tools/kunit/。
+
+* CONFIG_FUNCTION_GRAPH_TRACER
 
 ```
-
+config FUNCTION_GRAPH_TRACER
+	bool "Kernel Function Graph Tracer"
+	depends on HAVE_FUNCTION_GRAPH_TRACER
+	depends on FUNCTION_TRACER
+	depends on !X86_32 || !CC_OPTIMIZE_FOR_SIZE
+	default y
+	help
+	  Enable the kernel to trace a function at both its return
+	  and its entry.
+	  Its first purpose is to trace the duration of functions and
+	  draw a call graph for each thread with some information like
+	  the return value. This is done by setting the current return
+	  address on the current task structure into a stack of calls.
 ```
 
-### CONFIG_VMAP_STACK
+使内核能够在函数的返回和入口处跟踪函数。
+
+它的第一个目的是跟踪函数的持续时间，并为每个线程绘制带有返回值等信息的调用图。这是通过将当前任务结构上的当前返回地址设置为调用堆栈来实现的。
+
+* CONFIG_TRACING
 
 ```
-
+config TRACING
+	bool
+	select RING_BUFFER
+	select STACKTRACE if STACKTRACE_SUPPORT
+	select TRACEPOINTS
+	select NOP_TRACER
+	select BINARY_PRINTF
+	select EVENT_TRACING
+	select TRACE_CLOCK
+	select TASKS_RCU if PREEMPTION
 ```
 
-### CONFIG_THREAD_INFO_IN_TASK
+* CONFIG_KCOV
 
 ```
+config KCOV
+	bool "Code coverage for fuzzing"
+	depends on ARCH_HAS_KCOV
+	depends on CC_HAS_SANCOV_TRACE_PC || GCC_PLUGINS
+	depends on !ARCH_WANTS_NO_INSTR || HAVE_NOINSTR_HACK || \
+		   GCC_VERSION >= 120000 || CLANG_VERSION >= 130000
+	select DEBUG_FS
+	select GCC_PLUGIN_SANCOV if !CC_HAS_SANCOV_TRACE_PC
+	select OBJTOOL if HAVE_NOINSTR_HACK
+	help
+	  KCOV exposes kernel code coverage information in a form suitable
+	  for coverage-guided fuzzing (randomized testing).
 
+	  If RANDOMIZE_BASE is enabled, PC values will not be stable across
+	  different machines and across reboots. If you need stable PC values,
+	  disable RANDOMIZE_BASE.
+
+	  For more details, see Documentation/dev-tools/kcov.rst.
 ```
 
-### CONFIG_LIVEPATCH
+KCOV以一种适合于覆盖率引导的模糊测试(随机测试)的形式公开内核代码覆盖率信息。
+
+如果启用了RANDOMIZE_BASE, PC值在不同的机器和重新启动时将不稳定。如果你需要稳定的PC值，禁用RANDOMIZE_BASE。
+
+* CONFIG_MEMCG
 
 ```
-
+config MEMCG
+	bool "Memory controller"
+	select PAGE_COUNTER
+	select EVENTFD
+	help
+	  Provides control over the memory footprint of tasks in a cgroup.
 ```
 
-### CONFIG_SECURITY
+提供对c组中任务的内存占用的控制。
+
+* CONFIG_UPROBES
 
 ```
+config UPROBES
+	def_bool n
+	depends on ARCH_SUPPORTS_UPROBES
+	help
+	  Uprobes is the user-space counterpart to kprobes: they
+	  enable instrumentation applications (such as 'perf probe')
+	  to establish unintrusive probes in user-space binaries and
+	  libraries, by executing handler functions when the probes
+	  are hit by user-space applications.
 
+	  ( These probes come in the form of single-byte breakpoints,
+	    managed by the kernel and kept transparent to the probed
+	    application. )
 ```
 
-### CONFIG_BPF_SYSCALL
+Uprobes是kprobes的用户空间对应物:它们使仪表应用程序(如'perf probe')能够在用户空间二进制文件和库中建立非侵入式探测，方法是在探测被用户空间应用程序击中时执行处理程序函数。
+
+(这些探测以单字节断点的形式出现，由内核管理，对被探测的应用程序保持透明。)
+
+* CONFIG_BCACHE
 
 ```
+config BCACHE
+	tristate "Block device as cache"
+	select BLOCK_HOLDER_DEPRECATED if SYSFS
+	select CRC64
+	help
+	Allows a block device to be used as cache for other devices; uses
+	a btree for indexing and the layout is optimized for SSDs.
 
+	See Documentation/admin-guide/bcache.rst for details.
 ```
 
-### CONFIG_GCC_PLUGIN_STACKLEAK
+允许一个块设备用作其他设备的缓存;使用b树进行索引，布局针对ssd进行了优化。
+
+* CONFIG_MMU
 
 ```
-
+config MMU
+	def_bool y
 ```
 
-### CONFIG_X86_MCE
+* CONFIG_VMAP_STACK
 
 ```
+config VMAP_STACK
+	default y
+	bool "Use a virtually-mapped stack"
+	depends on HAVE_ARCH_VMAP_STACK
+	depends on !KASAN || KASAN_HW_TAGS || KASAN_VMALLOC
+	help
+	  Enable this if you want the use virtually-mapped kernel stacks
+	  with guard pages.  This causes kernel stack overflows to be
+	  caught immediately rather than causing difficult-to-diagnose
+	  corruption.
 
+	  To use this with software KASAN modes, the architecture must support
+	  backing virtual mappings with real shadow memory, and KASAN_VMALLOC
+	  must be enabled.
 ```
 
-### CONFIG_KRETPROBES
+如果您希望使用带有保护页的虚拟映射内核堆栈，请启用此选项。这将导致立即捕获内核堆栈溢出，而不是导致难以诊断的损坏。
+
+为了在软件KASAN模式中使用它，架构必须支持使用真实影子内存的虚拟映射，并且KASAN_VMALLOC必须启用。
+
+* CONFIG_LIVEPATCH
 
 ```
-
+config LIVEPATCH
+	bool "Kernel Live Patching"
+	depends on DYNAMIC_FTRACE_WITH_REGS || DYNAMIC_FTRACE_WITH_ARGS
+	depends on MODULES
+	depends on SYSFS
+	depends on KALLSYMS_ALL
+	depends on HAVE_LIVEPATCH
+	depends on !TRIM_UNUSED_KSYMS
+	help
+	  Say Y here if you want to support kernel live patching.
+	  This option has no runtime impact until a kernel "patch"
+	  module uses the interface provided by this option to register
+	  a patch, causing calls to patched functions to be redirected
+	  to new function code contained in the patch module.
 ```
 
-### CONFIG_RETHOOK
+如果您希望支持内核实时补丁，请在这里输入Y。该选项对运行时没有影响，直到内核“补丁”模块使用该选项提供的接口注册补丁，导致对补丁函数的调用被重定向到补丁模块中包含的新函数代码。
+
+* CONFIG_SECURITY
 
 ```
+config SECURITY
+	bool "Enable different security models"
+	depends on SYSFS
+	depends on MULTIUSER
+	help
+	  This allows you to choose different security modules to be
+	  configured into your kernel.
 
+	  If this option is not selected, the default Linux security
+	  model will be used.
+
+	  If you are unsure how to answer this question, answer N.
 ```
 
-### CONFIG_ARCH_HAS_PARANOID_L1D_FLUSH
+这允许您选择要配置到内核中的不同安全模块。如果不选择此选项，则将使用默认的Linux安全模型。
+
+* CONFIG_BPF_SYSCALL
 
 ```
-
+config BPF_SYSCALL
+	bool "Enable bpf() system call"
+	select BPF
+	select IRQ_WORK
+	select TASKS_RCU if PREEMPTION
+	select TASKS_TRACE_RCU
+	select BINARY_PRINTF
+	select NET_SOCK_MSG if NET
+	select PAGE_POOL if NET
+	default n
+	help
+	  Enable the bpf() system call that allows to manipulate BPF programs
+	  and maps via file descriptors.
 ```
 
-### CONFIG_RV
+启用允许操作bpf程序的bpf系统调用并通过文件描述符映射。
+
+* CONFIG_GCC_PLUGIN_STACKLEAK
 
 ```
+config GCC_PLUGIN_STACKLEAK
+	bool "Poison kernel stack before returning from syscalls"
+	depends on GCC_PLUGINS
+	depends on HAVE_ARCH_STACKLEAK
+	help
+	  This option makes the kernel erase the kernel stack before
+	  returning from system calls. This has the effect of leaving
+	  the stack initialized to the poison value, which both reduces
+	  the lifetime of any sensitive stack contents and reduces
+	  potential for uninitialized stack variable exploits or information
+	  exposures (it does not cover functions reaching the same stack
+	  depth as prior functions during the same syscall). This blocks
+	  most uninitialized stack variable attacks, with the performance
+	  impact being driven by the depth of the stack usage, rather than
+	  the function calling complexity.
 
+	  The performance impact on a single CPU system kernel compilation
+	  sees a 1% slowdown, other systems and workloads may vary and you
+	  are advised to test this feature on your expected workload before
+	  deploying it.
+
+	  This plugin was ported from grsecurity/PaX. More information at:
+	   * https://grsecurity.net/
+	   * https://pax.grsecurity.net/
 ```
 
-### CONFIG_USER_EVENTS
+该选项使内核在从系统调用返回之前擦除内核堆栈。这样做的效果是使堆栈初始化为有毒值，这既减少了任何敏感堆栈内容的生命周期，又减少了未初始化堆栈变量被利用或信息暴露的可能性(它不包括在同一系统调用期间达到与先前函数相同堆栈深度的函数)。这将阻止大多数未初始化的堆栈变量攻击，其性能影响取决于堆栈使用的深度，而不是函数调用的复杂性。
+
+对单个CPU系统内核编译的性能影响会降低1%，其他系统和工作负载可能会有所不同，建议您在部署该特性之前在预期的工作负载上测试该特性。
+
+* CONFIG_X86_MCE
 
 ```
+config X86_MCE
+	bool "Machine Check / overheating reporting"
+	select GENERIC_ALLOCATOR
+	default y
+	help
+	  Machine Check support allows the processor to notify the
+	  kernel if it detects a problem (e.g. overheating, data corruption).
+	  The action the kernel takes depends on the severity of the problem,
+	  ranging from warning messages to halting the machine.
+```
+
+机器检查支持允许处理器通知内核，如果它检测到一个问题(例如过热，数据损坏)。内核采取的操作取决于问题的严重程度，从警告消息到停止机器。
+
+* CONFIG_KRETPROBES
 
 ```
+config KRETPROBES
+	def_bool y
+	depends on KPROBES && (HAVE_KRETPROBES || HAVE_RETHOOK)
+```
+
+* CONFIG_RETHOOK
+
+```
+config RETHOOK
+	bool
+	depends on HAVE_RETHOOK
+	help
+	  Enable generic return hooking feature. This is an internal
+	  API, which will be used by other function-entry hooking
+	  features like fprobe and kprobes.
+```
+
+启用泛型返回挂钩特性。这是一个内部API，其他函数入口挂钩特性(如fprobe和kprobes)将使用它。。
+
+* CONFIG_ARCH_HAS_PARANOID_L1D_FLUSH
+
+```
+config ARCH_HAS_PARANOID_L1D_FLUSH
+	bool
+```
+
+* CONFIG_RV
+
+```
+menuconfig RV
+	bool "Runtime Verification"
+	depends on TRACING
+	help
+	  Enable the kernel runtime verification infrastructure. RV is a
+	  lightweight (yet rigorous) method that complements classical
+	  exhaustive verification techniques (such as model checking and
+	  theorem proving). RV works by analyzing the trace of the system's
+	  actual execution, comparing it against a formal specification of
+	  the system behavior.
+
+	  For further information, see:
+	    Documentation/trace/rv/runtime-verification.rst
+```
+
+启用内核运行时验证基础结构。RV是一种轻量级(但严格的)方法，它补充了经典的详尽验证技术(如模型检查和定理证明)。RV的工作原理是分析系统实际执行的跟踪，并将其与系统行为的正式规范进行比较。
+
+* CONFIG_USER_EVENTS
+
+```
+config USER_EVENTS
+	bool "User trace events"
+	select TRACING
+	select DYNAMIC_EVENTS
+	help
+	  User trace events are user-defined trace events that
+	  can be used like an existing kernel trace event.  User trace
+	  events are generated by writing to a tracefs file.  User
+	  processes can determine if their tracing events should be
+	  generated by registering a value and bit with the kernel
+	  that reflects when it is enabled or not.
+
+	  See Documentation/trace/user_events.rst.
+	  If in doubt, say N.
+```
+
+用户跟踪事件是用户定义的跟踪事件，可以像使用现有的内核跟踪事件一样使用。用户跟踪事件是通过写入tracefs文件生成的。用户进程可以通过向内核注册反映何时启用或不启用的值和位来确定是否应该生成它们的跟踪事件。
 
 ### 进程状态 Process State
 
