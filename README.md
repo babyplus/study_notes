@@ -54,7 +54,67 @@ Each exception or interrupt is identified by a number ranging from 0 to 255.
 
 ### IRQ和中断 IRQs and Interrupts
 
+Each hardware device controller is capable of issuing interrupt requests, usually, a single or several output lines designated as the Interrupt ReQuest(IRQ) line.All existing IRQ lines are connected to the input pins of a hardware circuit called the Programmable Interrupt Controller.
+
+每个能够发出中断请求的硬件设备控制器都有一条或多条名为Interrupt ReQuest（IRQ）的输出线。所有现有的IRQ线都与一个名为可编程中断控制器（Programmable Interrupt Controller, PIC）的硬件电路的输入引脚相连。
+
+Programmable Interrupt Controller performs the following actions:
+
+* Monitors the IRQ lines, checking for raised signals
+* Converts the raised signal received into a corresponding vector
+* Stores the vector in an Interrupt Controller I/O port, thus allowing the CPU to read it via the data bus
+* Sends a raised signal to the processor INTR pin, that is, issue an interrupt
+* Waits until the CPU acknowledges the interrupt signal by writing into one of Programmable Interrupt Controllers I/O ports; when this occurs, clears the INTR line.
+
+可编程中断控制器执行下列动作：
+
+* 监视IRQ线，检查产生的信号（raised signal）
+* 把接收到引发信号转换成对应的向量
+* 把这个向量存放在中断控制器的一个I/O端口，从而允许CPU通过数据总线读此向量
+* 把引发信号发送到处理器的INTR引脚，即产生一个中断
+* 等待，直到CPU通过把这个中断信号写进可编程中断控制器的一个I/O端口来确认它；当这种情况发生时，清INTR线
+
 #### 高级可编程中断控制器 The Advanced Programmable Interrupt Controller (APIC)
+
+Being able to deliver interrupts to each CPU in the system is crucial for fully exploiting the parallelism of the SMP architecture. For that reason, Intel introduced starting with Pentium 3 a new component designated as the I/O Advanced Programmable Interrupt Controller.
+
+从奔腾3开始引入I/O高级可编程控制器把中断传递给系统中的每个CPU。
+
+All current 80x86 microprocessors include a local APIC. Each local APIC has 32-bit registers; an internal clock; a local timer device; and two additional IRQ lines(LINT0 and LINT1) reserved for local APIC interrupts. All local APICs are connected an external I/O APIC, giving rise to a multi-APIC system.
+
+80x86微处理器当前所有的CPU都含有一个本地APIC，每个本地APIC都有32位的寄存器、一个内部时钟、一个本地定时器及为本地APIC中断保留的两条额外的IRQ线LINT0和LINT1。所有本地APIC都连接到一个外部I/O APIC，形成一个多APIC的系统。
+
+I/O APIC components:
+
+* a set of 24 IRQ lines
+* a 24-entry Interrupt Redirection Table
+* programmable registers
+* a message unit for sending and receiving APIC messages over the APIC bus
+
+I/O APIC的组成：
+
+* 一组24条IRQ线
+* 一张24项的中断重定向表（Interrupt Redirection Table）
+* 可编程寄存器
+* 通过APIC总线发送和接收APIC信息的一个信息单元
+
+Each entry in the Redirection Table can be individually programmed to indicate the interrupt vector and priority, the destination processor, and how the processor is selected.
+
+中断重定向表中的每一项都可以被单独编程以指明中断向量和优先级、目标处理器及选择处理器的方式。
+
+The information in the Redirection Table is used to translate each external IRQ signal into a message to one or more local APIC units via the APIC bus.
+
+重定向表中的信息用于把每个外部IRQ信号转换为一条消息，然后，通过APIC总线把消息发送给一个或多个本地APIC单元。
+
+Interrupt requests coming from external hardware devices can be distributed among the available CPUs in two ways:
+
+* Static distribution
+* Dynamic distribution
+
+来自外部硬件设备的中断请求以两种方式在可用的CPU之间分发：
+
+* 静态方式
+* 动态方式
 
 ### 异常 Exceptions
 
