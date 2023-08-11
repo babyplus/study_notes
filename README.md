@@ -4,11 +4,65 @@
 
 ## 调度策略 Scheduling Policy
 
+The set of rules used to determine when and how to select a new process to run is called scheduling policy.
+
+决定什么时候以怎样的方式选择一个新进程运行的这组规则就是所谓的调度策略（scheduling policy）。
+
+Linux scheduling is based on the time sharing technique; several processes run in "time multiplexing" because the CPU time is devided into slices, one for each runnable process.
+
+Linux的调度基于分时（time sharing）技术：多个进程以“时间多路复用”方式运行，因为CPU的时间被分成“片（slice）”，给每个可运行的程序分配一片。
+
+If a currently running process is not terminated when its time slice or quantum expires, a process switch may take place.
+
+如果当前运行进程的时间片或时限（quantum）到期时，该进程还没有运行完毕，进程切换就可以发生。
+
+Time sharing relies on timer interrupts and is thus transparent to processes. No additional code needs to be inserted in the programs to ensure CPU time sharing.
+
+分时依赖于定时中断，因此对进程是透明的，不需要在程序中插入额外的代码来保证CPU分时。
+
+The traditional classification of processes:
+
+* I/O-bound
+* CPU-bound
+
+传统上对进程的分类：
+
+* I/O受限
+* CPU受限
+
+An alternative classification distinguishes tree clases of processes:
+
+* Interactive processes
+* Batch processes
+* Real-time processes
+
+对进程的另一种分类：
+
+* 交互式进程
+* 批处理进程
+* 实时进程
+
 ### 进程的抢占 Process Preemption
 
 ### 一个时间片必须持续多长？How Long Must a Quantum Last?
 
+If the average quantum duration is too short, the system overhead caused by process switches becomes excessively high; If the average quantum duration is too long, processes no longer appear to be executed concurrently.
+
+如果平均时间片太短，由进程切换引起的系统额外开销就变得非常高；如果平均时间片太长，进程看起来就不再是并发执行。
+
 ## 调度算法 The Scheduling Algorithm
+
+Every Linux process is always scheduled according to one of the following scheduling classes:
+
+* SCHED_FIFO: A First-In, First-Out real-time process
+* SCHED_RR: A Round Robin Real-time process
+* SCHED_NORMAL: A conventional, time-shared process 
+
+每个Linux进程总是按照下面的调度类型被调度：
+
+* SCHED_FIFO：先进先出的实时进程
+* SCHED_RR：时间片轮转的实时进程
+* SCHED_NORMAL：普通的分时进程
 
 ### 普通进程的调度 Scheduling of Conventional Processes
 
