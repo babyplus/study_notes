@@ -66,11 +66,55 @@ Every Linux process is always scheduled according to one of the following schedu
 
 ### 普通进程的调度 Scheduling of Conventional Processes
 
+Every conventional process has its own static priority, which is a value used by the scheduler to rate the process with respect to the other conventional processes in the system.
+
+每个普通的进程都有他自己的静态优先级，调度程序使用静态优先级来估价系统中这个进程与其他进程之间的调度的程度。
+
+The kernel represents the static priority of a conventional process with a number ranging from 100(highest priority) to 139(lowest priority).
+
+内核用从100（最高优先级）到139（最低优先级）的数来表示普通进程的静态优先级。
+
 #### 基本时间片 Base time quantum
+
+The static priority essentially determines the base time quantum of a process, the higher the static priority, the longer the base time quantum.
+
+静态优先级本质上决定了进程的基本时间片，静态优先级越高，基本时间片就越长。
+
+if static priority < 120, base time quantum=(140-static priority)*20
+if static priority >= 120, base time quantum=(140-static priority)*5
+
+若静态优先级<120，则基本时间片=(140-静态优先级)*20
+若静态优先级>=120，则基本时间片=(140-静态优先级)*5
 
 #### 动态优先级和平均睡眠时间 Dynamic priority and average sleep time
 
+Beside a static priority, a conventional process also has a dynamic priority, which is  a value ranging from 100(highest priority) to 139(lowest priority).
+
+普通进程除了静态优先级，还有动态优先级，其值得范围是100（最高优先级）到139（最低优先级）。
+
+The dynamic priority is the number actually looked up by the scheduler when selecting the new process to run.
+
+动态优先级是调度程序在选择新进程来运行的时候使用的数。
+
+dynamic priority=max(100, min(static priority-bonus+5, 139))
+
+动态优先级=max(100, min(静态优先级-奖励值+5， 139))
+
+The bonus is a value ranging from 0 to 10; it depends on the past history of the process, more precisely, it is related to the average sleep time of the process.
+
+奖励值依赖于进程过去的情况，与进程的平均睡眠时间相关，范围是0到10。
+
 #### 活动和过期进程 Active and expired processes
+
+To avoid process starvation, the scheduler keeps tow disjoint sets of runnable processes.
+
+* Active processes: these runnable processes have not yet exhausted their time quantum and are thus allowed to run
+* Expired processes: these runnable processes have exhausted their time quantum and are thus forbidden to run until all active processes expire
+
+为了避免进程饥饿，调度程序维持两个不相交的可运行进程的集合。
+
+* 活动进程：这些进程还没用完时间，因此允许他们运行
+* 过期进程：这些可运行进程已经用完他们的时间片并因此被禁止运行直到所有活动进程都过期
 
 ### 实时进程的调度 Scheduling of Real-Time Processes
 
