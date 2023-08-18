@@ -4,7 +4,53 @@
 
 ## 虚拟文件系统的作用 The Role of the Virtual Filesystem(VFS)
 
+The virtual Filesystem is a kernel software layer that handles all system calls related to a standard Unix filesystem.
+
+虚拟文件系统也可以称之为虚拟文件系统转换（VFS），是一个内核软件层，用来处理与Unix标准文件系统相关的所有系统调用。
+
+Filesystems supported by the VFS may be grouped into three main classes:
+
+* Disk-based filesystems
+* Network filesystems
+* Special filesystems
+
+VFS支持的文件系统可以分为三种主要类型：
+
+* 磁盘文件系统
+* 网络文件系统
+* 特殊文件系统
+
 ### 通用文件模型 The Common File Model
+
+The key idea behind the VFS consist of introducing a common file model captable of representing all supported filesystems.
+
+VFS所隐含的主要思想在于引入了一个通用的文件模型，这个模型能够表示所有支持的文件系统。
+
+more essentially, the Linux kernel cannot hardcode a particular function, it must use a pointer for each operation, the pointer is made to point to the proper function for the particular filesystem being accessed.
+
+Linux内核不能对一个特定的函数进行硬编码，而是对每个操作都必须使用一个指针，指向要访问的具体文件系统的适当函数。
+
+The common file model consists of the following object types:
+
+* The superblock object
+* The inode object
+* The file object
+* The dentry object
+
+通用文件模型由下列对象类型组成：
+
+* 超级块对象
+* 索引节点对象
+* 文件对象
+* 目录项对象
+
+Besides providing a common interface to all filesystem implementations, the VFS has another important fole related to system performance. The most recently used dentry objects are contained in a disk cache named the dentry cache, which speed up the translation from a file pathname to the inode of the last pathname component.
+
+VFS除了能为所有文件系统的实现提供一个通用接口外，还具有另一个与系统性能相关的重要作用。最近最常使用的目录项对象被放在目录项高速缓存的磁盘高速缓存中，以加速从文件路径名到最后一个路径分量的索引节点的转换过程。
+
+A disk cache is a software mechanism. 
+
+磁盘高速缓存属于软件机制。
 
 ### VFS所处理的系统调用 System Calls Handle by the VFS
 
