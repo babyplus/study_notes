@@ -4,6 +4,18 @@
 
 ## 读写文件 Reading and Writing a File
 
+Reading a file is page-based, the kernel always transfers whole pages of data at once.
+
+读文件是基于页的，内核总是一次传送几个完整的数据页。
+
+If a process issues a read() system call to get a few bytes, and that data is not already in RAM, the kernel allocates a new page frame, fills the page with the suitable portion of the file, adds the page to the page cache, and finally copies the requested bytes into the process address space.
+
+如果进程发出read()系统调用来读取一些字节，而这些数据还不在RAM中，那么，内核就要分配一个新页框，并使用文件的适当部分来填充该页，把该页加入页高速缓存，最后把所请求的字节拷贝到进程地址空间中。
+
+For most filesystems, reading a page of data from a file is just a matter of finding what blocks on the disk contain the requested data.
+
+对于大部分文件系统来说，从文件中读取一个数据页就等同于在磁盘上查找所请求的数据存放在哪些块上。
+
 ### 从文件中读取数据 Reading from a File
 
 #### 普通文件的readpage方法 The readpage method for regular files
