@@ -1,10 +1,10 @@
-﻿# 内核_内存访问_Memory_Addressing  
+﻿# 内核_内存寻址_Memory_Addressing  
 
 *20230725*  
 
 ## 内存地址 Memory Addresses
 
-In computing, a memory address is a reference to a specific memory location used at various levels by software and hardware. Memory addresses are fixed-length sequences of digits conventionally displayed and manipulated as unsigned integers. Such numerical semantic bases itself upon features of CPU (such as the instruction pointer and incremental address registers), as well upon use of the memory like an array endorsed by various programming languages.
+In computing, a memory address is a reference to a specific memory location used at various levels by software and hardware.  Memory addresses are fixed-length sequences of digits conventionally displayed and manipulated as unsigned integers.  Such numerical semantic bases themselves upon features of the CPU (such as the instruction pointer and incremental address registers), as well as upon the use of the memory like an array endorsed by various programming languages.
 
 在计算中，内存地址是指软件和硬件在不同级别上使用的特定内存位置的引用。内存地址是固定长度的数字序列，通常作为无符号整数显示和操作。这种数字语义本身基于CPU的特性(如指令指针和增量地址寄存器)，以及像各种编程语言支持的数组一样使用内存。
 
@@ -15,13 +15,13 @@ Linear Address --> Paging Unit --> Physical Address
 
 ### 逻辑地址 Logical addresses
 
-Included in the machine language instructions to specify the address of an operand or of an instruction. This type of address embodies the well-known 80 × 86 segmented architecture that forces MS-DOS and Windows programmers to divide their programs into segments . Each logical address consists of a segment and an offset (or displacement) that denotes the distance from the start of the segment to the actual address.
+Logical addresses is included in the machine language instructions to specify the address of an operand or of an instruction. This type of address embodies the well-known 80 × 86 segmented architecture that forces MS-DOS and Windows programmers to divide their programs into segments. Each logical address consists of a segment and an offset (or displacement) that denotes the distance from the segment`s start to the actual address.
 
 包含在机器语言指令中，用于指定指令的操作数或指令的地址。这种类型的地址体现了众所周知的80x86分段架构，它迫使MS-DOS和Windows程序员将他们的程序划分为段。每个逻辑地址由一个段和一个偏移量(或位移)组成，偏移量表示从段的开始到实际地址的距离。
 
 ### 线性地址 Linear addresses
 
-A single 32-bit unsigned integer that can be used to address up to 4 GB — that is, up to 4,294,967,296 memory cells. Linear addresses are usually represented in hexadecimal notation; their values range from 0x00000000 to 0xffffffff.
+A single 32-bit unsigned integer can be used to address up to 4 GB — that is, up to 4,294,967,296 memory cells. Linear addresses are usually represented in hexadecimal notation; their values range from 0x00000000 to 0xffffffff.
 
 单个32位无符号整数，可用于寻址最多4gb—即最多4,294,967,296个内存单元。线性地址通常用十六进制表示法表示;取值范围为0x00000000到0xffffffff。
 
@@ -58,12 +58,6 @@ Each segment is represented by an 8-byte Segment Descriptor that describes the s
 
 每个段由一个8字节的段描述符表示，该段描述符描述了段的特征。
 
-#### 全局描述符表 GDT
-
-#### 局部描述符表 LDT
-
-#### 段描述符字段 Segment Descriptor fields
-
 ### 快速访问段描述符 Fast Access to Segment Descriptors
 
 #### 非编程寄存器 Nonprogrammable Register
@@ -74,7 +68,7 @@ Each segment is represented by an 8-byte Segment Descriptor that describes the s
 
 ### 分段单元 Segmentation Unit
 
-Examines the TI field of the Segment Selector;Computes the address of the Segment Descriptor from the index field of the Segment Selector;Adds the offset of the logical address to the Base field of the Segment Descriptor, thus obtaining the linear address.
+Examines the TI field of the Segment Selector; Computes the address of the Segment Descriptor from the index field of the Segment Selector; Adds the offset of the logical address to the Base field of the Segment Descriptor, thus obtaining the linear address.
 
 检查段选择器的Tl字段;从段选择器的索引字段计算段描述符的地址;将逻辑地址的偏移量添加到段描述符的Base字段，从而获得线性地址。
 
@@ -130,6 +124,10 @@ In uniprocessor systems there is only one GDT, while in multiprocessor systems t
 * not used
 * double fault TSS 0xf8
 
+All GDTs are stored in the cpu_gdt_table array, while the addresses and sizes of the GDTs (used when initializing the gdtr registers) are stored in the cpu_gdt_descr array.
+
+所有的GDT都存放在cpu_gdt_table数组中，而所有GDT的地址和他们的大小（当初始化gdtr寄存器时使用）被存放在cpu_gdt_descr数组中。
+
 #### 四个用户态和内核态下的代码段和数据段 Four user and kernel code and data segments
 
 #### 一个任务状态段 A Task State Segment
@@ -152,4 +150,158 @@ Most Linux User Mode applications do not make use of a LDT, thus the kernel defi
 
 ## 硬件中的分页 Paging in Hardware
 
-## 系统中的分页 Paging in Linux
+The paging unit translates linear addresses into physical ones.
+
+分页单元把线性地址转换成物理地址。
+
+Linear addresses are grouped in fixed-length intervals called pages.
+
+线性地址被分成以固定长度为单位的组，称为页。
+
+Contiguous linear addresses within a page are mapped into contiguous physical addresses.
+
+页内部连续的线性地址被映射到连续的物理地址中。
+
+The Paging unit thinks of all RAM as partitioned into fixed-length page frames (sometimes referred to as physical pages).
+
+分页单元把所有的RAM分成固定长度的页框（有时叫做物理页）。
+
+Each page frame contains a page - that is, the length of a page frame coincides with that of a page.
+
+每个页框包含一个页并且长度一致。
+
+Page frame is a consitituent of main memory; A page is a block of data, which may be stored in any page frame or on disk.
+
+页框是主存的一部分；页是一个数据块，可以存放在任何页框或者磁盘。
+
+### 常规分页 Regular Paging
+
+The 32 bits of a linear address are divided into three field:
+
+* Directory: The most significant 10 bits
+* Table: The intermediate 10 bits
+* Offset: The least significant 12 bits
+
+32位的线性地址被分成3个域：
+
+* 目录：最高10位
+* 页表：中间10位
+* 偏移量：最低12位（2的12次方是4096，一个页框也是4k大小，相当于从页表中找出页所在的页框的物理地址，然后通过偏移量找到具体位置）
+
+The translation of linear addresses is accomplished in two steps, each based on a type of translation table. 
+
+线性地址的转换分两步完成，每一步都基于一种转换表，第一种转换表称为页目录表，第二种转换表被称为页表。
+
+### 拓展分页 Extended Paging 
+
+Extended paging allows page frames to be 4MB instead of 4KB in size, the kernel can do without intermediate Page Tables and thus save memory and preserve TLB entries.
+
+拓展分页允许页框大小为4MB（2的22次方是4M），内核可以不用中间的页表进行地址转换，从而节省内存并保留TLB项。
+
+### 硬件保护方案 Hardware Protection Scheme
+
+Only two privilege levels are associated with pages and Page Tables, because privileges are controlled by the User/Supervisor flag, When this flag is 0, the page can be addressed only when the CPL is less than 3；when the flag is 1, the page can always be addressed. 
+
+页和页表相关的特权级只有两个，由页目录项和页表项结构体中的User/Supervisor标志控制，若该标志为0，只有当CPL小于3时才能对页寻址，若为1，则总能对页寻址。
+
+### 常规分页举例 An Example of Regular Paging
+
+### 物理地址扩展（PAE）分页机制 The Physical Address Extension (PAE) Paging Machanism
+
+Intel increased the number of pins from 32 to 36, bringing the addressing capacity to 2^26(64GB).
+
+Intel通过把管脚数从32增加到36，寻址能力达到2^26(64GB) 。
+
+With the Pentium Pro processor, Intel introduced a mechanism called Physical Address Extension that translates 32-bit linear addresses into 36-bit physical ones.
+
+从 Pentium Pro 处理器开始，Intel 引入一种叫做物理地址扩展的机制，把32位的线性地址转换为36位物理地址。
+
+Intel has changed the paging mechanism in order to support PAE, the linear addresses are still 32 bits long, this forces kernel programmers to reuse the same linear addresses to map different areas of RAM.
+
+Intel为了支持PAE改变了分页机制，但是线性地址仍然是32位长，迫使内核编程人员用同一线性地址映射不同的RAM区。
+
+PAE does not enlarge the linear address space of a process, because it deals only with physical addresses.
+
+PAE只扩展了物理地址并没有扩大进程的线性地址空间。
+
+A process running in User Mode cannot use a physical address space larger than 4 GB.
+
+用户态下运行的进程不能使用大于4GB的物理地址空间。
+
+### 64位系统中的分页 Paging for 64-bit Architectures
+
+All hardware paging systems for 64-bit processors make use of additional paging levels.
+
+所有的64位处理器的硬件分页系统都使用了额外的分页级别。
+
+### 硬件高速缓存 Hardware Cache
+
+Hardware cache memories are base on the well-known locality principle, which holds both for programs and data structures. This states that because of the cyclic structure of programs and the packing of related data into linear arrays, addresses close to the ones most recently used have a high probability of being used in the near future.
+
+硬件高速缓存基于局部性原理，该原理既适用于程序结构也适用于数据结构。由于程序的循环结构及相关数组可以组织成线性数组，最近最常用的相邻地址在最近的将来又被用到的可能性极大。
+
+A new unit called the line was introduced into the 80x86 architecture, it consists of a few dozen contiguous bytes that are transferred in burst mode between the slow DRAM and the fast on-chip SRAM used to implement caches.
+
+80x86体系结构中引入一个叫行的新单位，行由几十个连续的字节组成，它们以脉冲突发模式在慢速DRAM和快速的用来实现高速缓存的片上静态SRAM之间传送，用来实现高速缓存。
+
+When accessing a RAM memory cell, the CPU extracts the subset index from the physical address and compares the tags of all lines in the subset with the high-order bits of the physical address. If a line with the same tag as the high-order bits of the address is found, the CPU has a cache hit; otherwise, it has a cache miss.
+
+当访问一个RAM存储单元时，CPU从物理地址中提取出子集的索引号并把子集中所有行的标签与物理地址的高几位相比较。如果发现某一行的标签与这个物理地址的高位相同，则CPU命中一个高速缓存；否则，高速缓存没有命中。
+
+When a cache hit occurs, the cache controller behaves differently, depending on the access type:
+
+* Read operation
+* Write-through
+* Write-back
+
+当命中一个高速缓存时，高速缓存控制器进行不同的操作：
+
+* 读操作
+* 通写
+* 回写
+
+When a cache miss occurs, the cache line is written to memory, if necessary, and the correct line is fetched from RAM into the cache entry.
+
+当高速缓存没有命中时，高速缓存行被写回到内存中，如果有必要的话，把正确的行从RAM中取出放到高速缓存的表项中。
+
+### 转换后援缓冲器（TLB）Translation Lookaside Buffer
+
+Besides general-purpose hardware caches, 80x86 processors include another cache called Translation Lookaside Buffers (TLB) to speed up linear address translation.
+
+除了通用硬件高速缓存之外，80x86处理器还包含了另一个称为转换后援缓冲器或TLB的高速缓存用于加快线性地址的转换。
+
+Each CPU has its own TLB, called the local TLB of the CPU.
+
+每个CPU都有自己的TLB，这叫做该CPU的本地TLB。
+
+Contrary to the hardware cache, the corresponding entries of the TLB need not be synchronized.
+
+与硬件高速缓存相反，TLB中的对应项不必同步。
+
+## Linux中的分页 Paging in Linux
+
+### 线性地址字段 The Linear Address Fields
+
+### 页表处理 Page Table Handling
+
+### 物理内存布局 Physical Memory Layout
+
+### 进程页表 Process Page Tables
+
+### 内核页表 Kernel Page Tables
+
+#### 临时内核页表 Provisional kernel Page Tables
+
+#### 当RAM小于896MB时的最终内核页表 Final kernel Page Table when RAM size is less than 896MB
+
+#### 当RAM大小在896MB和4096MB之间时的最终内核页表 Final kernel Page Table when RAM size is between 896MB and 4096MB
+
+#### 当RAM大于4096MB时的最终内核页表 Final kernel Page Tabel when Ram size is more than 4096MB
+
+### 固定映射的线性地址 Fix-Mapped Linear Addresses
+
+### 处理硬件高速缓存和TLB Handling the Hardware Cache and the TLB
+
+#### 处理硬件高速缓存 Handling the hardware cache
+
+#### 处理TLB Handling the TLB
