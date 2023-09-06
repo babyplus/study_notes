@@ -38,7 +38,7 @@ The PIT issues a special interrupt called timer interrupt, which notifies the ke
 
 可编程间隔定时器通过发出时钟中断（timer interrupt）来通知内核又一个时间间隔过去了。
 
-The PIT goes on issuing interrupts forever at some fixed frequency established by thhe kernel.
+The PIT goes on issuing interrupts forever at some fixed frequency established by the kernel.
 
 可编程间隔定时器永远以内核确定的固定频率不停地发出中断。
 
@@ -80,13 +80,55 @@ ACPI电源管理定时器是另一种时钟设备，时钟信号大约为3.58MHz
 
 ## Linux计时体系结构 The Linux Timekeeping Architecture
 
+Linux must carry on serveral time-related activities. For instance, the kernel periodically:
+
+* Updates the time elapsed since system startup
+* Updates the time and date
+* Determines, for every CPU, how long the current process has been running, and preempts it if it has exceeded the time allocated to it.
+* Updates resource usage statistics
+* Checks whether the interval of time associated with  each software timer has elapsed
+
+内核周期性地执行下列与定时相关的操作：
+
+* 更新系统启动以来所经过的时间
+* 更新时间和日期
+* 确定当前进程在每个CPU上已运行了多长时间，如果已经超过了分配给它的时间，则抢占它
+* 更新资源使用统计数
+* 检查每个软定时器的时间间隔是否已到
+
 ### 计时体系机构的数据结构 Data Structures of the Timekeeping Architecture
 
 #### 定时器对象 The timer object
 
+In order to handle the possible timer sources in a uniform way, the kernel makes use of a "timer object", which is a descriptor of type timer_opts.
+
+为了使用统一的方法来处理可能存在的定时器资源，内核使用了“定时器对象”，它是timer_opts类型的一个描述符。
+
+The cur_timer variable stores the address of the timer object corresponding to the "best" timer source available in the system.
+
+* Initially, cur_timer points to timer_none
+* During the kernel initialization, the select_timer() function sets cur_timer to the address of the appropriate timer object.
+
+变量cur_timer存放了某个定时器对象的地址，该定时器是系统可利用的定时器资源中“最好的”。
+
+* 内核初始化的时候，cur_timer指向timer_none
+* 内核初始化期间，select_timer()函数设置cur_timer指向适当定时器对象的地址
+
 #### jiffies变量 The jiffies variable
 
+The jiffies variable is a counter that stores the number of elapsed ticks since the system was started.
+
+jiffies变量是一个计数器，用来记录自系统启动以来产生的节拍总数。
+
 #### xtime变量 The xtime variable
+
+The xtime variable stores the current time and date.
+
+xtime变量存放当前时间和日期，它是一个timespec类型的数据结构。
+
+The xtime variable is usually updated once in a tick, that is, roughly 1000 times persecond.
+
+xtime变量通常是每个节拍更新一次，也就是说，大约每秒更新1000次。
 
 ### 单处理器系统上的计时体系结构 Timekeeping Architecture in Uniprocessor Systems
 
