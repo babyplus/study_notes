@@ -118,9 +118,73 @@ Interrupt requests coming from external hardware devices can be distributed amon
 
 ### 异常 Exceptions
 
+The 80x86 microprocessors issue roughly 20 different exceptions. The kernel must provide a dedicated exception handler for each exception type.
+
+80x86微处理器发布了大约20种不同的异常。内核必须为每种异常提供一个专门的异常处理程序。
+
+For some exceptions,  the CPU control unit also generates a hardware error code and pushed it on the Kernel Mode stack before starting the exception handler.
+
+对于某些异常，CPU控制单元在开始执行异常处理程序前会产生一个硬件出错码，并且压入内核态堆栈。
+
 ### 中断描述符表 Interrupt Descriptor Table (IDT)
 
+A system table called Interrupt Descriptor Table associates each interrupt or exception vector with the address of the corresponding interrupt or exception handler.
+
+中断描述符表是一个系统表，它与每一个中断或异常向量相联系，每一个向量在表中有相应的中断或异常处理程序的入口。
+
+The IDT must be properly initialized before the kernel enables interrupts.
+
+内核在允许发生中断前，必须先初始化IDT。
+
+The IDT include three types of descriptors:
+
+* Task gate
+* Interrupt gate
+* Trap gate
+
+IDT包含三种类型的描述符：
+
+* 任务门
+* 中断门
+* 陷阱门
+
 ### 中断和异常的硬件处理 Hardware Handling of Interrupts and Exceptions
+
+The kernel has been initialized and the CPU is operating in Protected Mode.
+
+内核已经被初始化，CPU在保护模式下运行。
+
+After executing an instruction, the cs and eip pair of registers contain the logical address of the next instruction to be executed.
+
+当执行了一条指令后，cs和eip这对寄存器包含下一个将要执行的指令的逻辑地址。
+
+Before dealing with instruction, the control unit checks whether an interrupt or an exception occurred while the control unit executed the previous instruction.
+
+在处理指令之前，控制单元会检查在运行前一条指令时是否已经发生了一个中断或者异常。
+
+If an interrupt or an exception occurred, the control unit does the following:
+
+* Determines the vector i associated with the interrupt or the exception
+* Reads the entry of the IDT referred by the idtr register
+* Gets the base address of the GDT from the gdtr register and looks in the GDT to read the Segment Descriptor identified by the selector in the IDT entry
+* Makes sure the interrupt was issued by an authorized source
+* Checks whether a change of privilege level is taking place, if so, the control unit must start using the stack that is associated with the new privilege level
+* If a fault has occurred, it loads cs and eip with the logical address of the instruction that caused the exception so that it can be executed again
+* Saves the contents of eflags, cs, eip in the stack
+* If the exception carries a hardware error code, it saves it on the stack
+* Loads cs and eip
+
+如果发生了一个中断或异常，那么控制单元执行下列操作：
+
+* 确定与中断或异常关联的向量i
+* 读取由idtr寄存器指向的IDT表中的第i项
+* 从gdtr寄存器获得GDT的基地址，并在GDT中查找，以读取IDT表项中的选择符所标识的段描述符
+* 确信中断是由授权的（中断）发生源发出的
+* 检查是否发生了特权级的变化，如果是，控制单元必须开始使用与新的特权级相关的栈
+* 如果故障已发生，用引起异常的指令地址装载cs和eip寄存器，从而使得这条指令能再次被执行
+* 在栈中保存eflags、cs及eip的内容
+* 如果产生了一个硬件出错码，则将它保存在栈中
+* 装载cs和eip寄存器，其值分别是IDT表中的第i项门描述符的段选择符和偏移量字段
 
 ## 中断和异常处理程序的嵌套执行 Nested Execution of Exception and Interrupt Handles
 
