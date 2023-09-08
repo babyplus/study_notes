@@ -106,7 +106,7 @@ The bonus is a value ranging from 0 to 10; it depends on the past history of the
 
 #### 活动和过期进程 Active and expired processes
 
-To avoid process starvation, the scheduler keeps tow disjoint sets of runnable processes.
+To avoid process starvation, the scheduler keeps two disjoint sets of runnable processes.
 
 * Active processes: these runnable processes have not yet exhausted their time quantum and are thus allowed to run
 * Expired processes: these runnable processes have exhausted their time quantum and are thus forbidden to run until all active processes expire
@@ -117,6 +117,38 @@ To avoid process starvation, the scheduler keeps tow disjoint sets of runnable p
 * 过期进程：这些可运行进程已经用完他们的时间片并因此被禁止运行直到所有活动进程都过期
 
 ### 实时进程的调度 Scheduling of Real-Time Processes
+
+Every real-time process is associated with a real-time priority, which is a value ranging from 1 (highest priority) to 99 (lowest priority).
+
+每个实时进程都与一个实时优先级相关，实时优先级是一个范围从1到99的值。
+
+A real-time process inhibits the execution of every lower-priority process while it remains runnable.
+
+实时进程运行的过程中，禁止低优先级进程的执行。
+
+Real-time processes are always considered active.
+
+实时进程总是被当成活动进程。
+
+If several real-time runnable processes have the same highest priority, the scheduler chooses the process that occurs first in the corresponding list of the local CPU`s run-queue.
+
+如果几个可运行的实时进程具有相同的最高优先级，那么调度程序选择第一个出现在本地CPU的运行队列相应链表中的进程。
+
+A real-time process is replaced by another process only when one of the following event occurs:
+
+* The process is preempted by another process having higher real-time priority
+* The process performs a blocking operation, and it is put to sleep
+* The process is stopped
+* The process voluntarily relinquishes the CPU by invoking the sched_yield() system call
+* The process is a Round Robin real-time process (SCHED_RR), and it has exhausted its time quantum
+
+只有在下述事件之一发生时，实时进程才会被另一个进程取代：
+
+* 进程被另一个具有更高实时优先级的实时进程抢占
+* 进程执行了阻塞操作并进入睡眠
+* 进程停止或者被杀死
+* 进程通过调用系统调用sched_yield()资源放弃CPU
+* 进程是基于时间片轮转的实时进程并用完了它的时间片
 
 ## 调度程序所使用的数据结构 Data Structures Used by the Scheduler
 
