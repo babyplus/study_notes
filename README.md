@@ -86,11 +86,85 @@ The kernel subsystem that handles the memory allocation requests for groups of c
 
 ### 高端内存页框的内核映射 Kernel Mappings of High-Memory Page Frames
 
+The linear address that corresponds to the end of the directly mapped physical memory, and thus to the beginning of the high memory, is stored in the high_memory variable, which is set to 896MB.
+
+高端内存的始端所对应的线性地址存放在high_memory变量中，它被设置为896MB。
+
+Page frames above the 896MB boundary are not generally mapped in the fourth gigagbyte of the kernel linear address spaces, so the kernel is unable to directly access them.
+
+896MB边界以上的页框并不映射在内核线性地址空间的第4个GB，因此，内核不能直接访问它们。
+
+Each page allocator function that returns the linear address of the assigned page frame doesn`t work for high-memory page frames.
+
+返回所分配页框线性地址的页分配器函数不适用于高端内存。
+
+The kernel uses three different mechanisms to map page frames in high-memory:
+
+* permanent kernel mapping
+* temporary kernel mapping
+* noncontiguous memory allocation
+
+内核可以采用三种不同的机制将页框映射到高端内存：
+
+* 永久内核映射
+* 临时内核映射
+* 非连续内存分配
+
 #### 永久内核映射 Permanent kernel mappings
+
+Permanent kernel mappings allow the kernel to establish long-lasting mappings of high-memory page frames into the kernel address space.
+
+永久内核映射允许内核建立高端页框到内核地址空间的长期映射。
+
+Permanent kernel mappings use a dedicated Page Table in master kernel page tables, the pkmap_page_table variable stores the address of this Page Table.
+
+使用主内核页表中一个专门的页表，其地址存放在pkmap_page_table变量中。
+
+The dedicated Page Table maps the linear addresses starting from PKMAP_BASE.
+
+该页表映射的线性地址从PKMAP_BASE开始。
+
+The pkmap_count array includes LAST_PKMAP counters, one for each entry of the pkmap_page_table Page Table.
+
+pkmap_count数组包含LAST_PKMAP个计数器，pkmap_page_table页表中的每一项都有一个。
+
+Three cases:
+
+* The counter is 0 The corresponding Page Table entry does not map any high-memory page frame and is usable
+* The counter is 1 The corresponding Page Table entry does not map any high-memory page frame, but it cannot be used because the corresponding TLB entry has not been flushed
+* The counter is n The corresponding Page Table entry maps a high-memory page frame, which is used by exactly n-1 kernel components
+
+三种情况：
+
+* 计数器为0 对应的页表项没有映射任何高端内存页框，并且是可用的
+* 计数器为1 对应的页表项没有映射任何高端内存页框，但是不能使用，因为自从最后一次使用以来，其相应的TLB表项还未被刷新
+* 计数器为n 相应的页表项映射一个高端内存页框，有n-1个内核成分在使用这个页框
 
 #### 临时内核映射 Temporary kernel mappings
 
 ### 伙伴系统算法 The Buddy System Algorithm
+
+There are essentially two ways to aviod external fragmentation:
+
+* Use the paging circuitry to map groups of noncontiguous free page frames into intervals of contiguous linear addresses
+* Develop a suitable technique to keep track of the existing blocks of free contiguous page frames, avoiding as much as possible the need to split up a large free block to satisfy a request for a smaller one
+
+避免外碎片的方法有两种：
+
+* 利用分页单元把一组非连续的空闲页框映射到连续的线性地址空间
+* 开发一种适当的技术来记录现存的空闲连续页框的情况，以尽量避免为满足对小块的请求而分割大的空闲块
+
+The second approach is preferred by the kernel for three good reasons:
+
+* In some cases, contiguous page frames are really necessary
+* it offers the big advantage of leaving the kernel paging tables unchanged
+* Large chunks of contiguous physical memory can be accessed by the kernel through 4MB pages, this reduces the Translation Lookside Buffers misses, thus significantly speeding up the average memory access time
+
+内核首选第二种方法：
+
+* 在某些情况下，连续的页框是必要的
+* 起保持内核页表不变的作用
+* 内核通过4MB的页可以访问大块连续的物理内存，减少TLB的失效率
 
 #### 数据结构 Data structures
 
