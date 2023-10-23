@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/index.js"></script><script>(()=>{setTimeout(()=>{const{markmap:M,mm:ge}=window,me=new M.Toolbar;me.attach(ge);const fe=me.render();fe.setAttribute("style","position:absolute;bottom:20px;right:20px"),document.body.append(fe)})})()</script><script>((F,I,R,H)=>{const X=F();window.mm=X.Markmap.create("svg#mindmap",(I||X.deriveOptions)(H),R)})(()=>window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[0,1]},"content":"内核_Ext2和Ext3文件系统_The_Ext2_and_Ext3_Filesystems","children":[{"type":"heading","depth":1,"payload":{"lines":[2,3]},"content":"Ext2的一般特征 General Characteristics of Ext2","children":[]},{"type":"heading","depth":1,"payload":{"lines":[4,5]},"content":"Ext2磁盘数据结构 Ext2 Disk Data Structures","children":[{"type":"heading","depth":2,"payload":{"lines":[6,7]},"content":"超级块 Superblock","children":[]},{"type":"heading","depth":2,"payload":{"lines":[8,9]},"content":"组描述符和位图 Group Descriptor and Bitmap","children":[]},{"type":"heading","depth":2,"payload":{"lines":[10,11]},"content":"索引节点表 Inode Table","children":[]},{"type":"heading","depth":2,"payload":{"lines":[12,13]},"content":"索引节点的增强属性 Extended Attributes of an Inode","children":[]},{"type":"heading","depth":2,"payload":{"lines":[14,15]},"content":"访问控制列表 Access Control Lists","children":[]},{"type":"heading","depth":2,"payload":{"lines":[16,17]},"content":"各种文件类型如何使用磁盘块 How Various File Types Use Disk Blocks","children":[{"type":"heading","depth":3,"payload":{"lines":[18,19]},"content":"普通文件 Regular file","children":[]},{"type":"heading","depth":3,"payload":{"lines":[20,21]},"content":"目录 Directory","children":[]},{"type":"heading","depth":3,"payload":{"lines":[22,23]},"content":"符号链接 Symbolic link","children":[]},{"type":"heading","depth":3,"payload":{"lines":[24,25]},"content":"设备文件、管道和套接字 Device file, pipe and socket","children":[]}]}]},{"type":"heading","depth":1,"payload":{"lines":[26,27]},"content":"Ext2的内存数据结构 Ext2 Memory Data Structures","children":[{"type":"heading","depth":2,"payload":{"lines":[28,29]},"content":"Ext2的超级块对象 Ext2 Superblock Object","children":[]},{"type":"heading","depth":2,"payload":{"lines":[30,31]},"content":"Ext2的索引节点对象 Ext2 Inode Object","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[32,33]},"content":"创建Ext2文件系统 Creating the Ext2 Filesystem","children":[]},{"type":"heading","depth":1,"payload":{"lines":[34,35]},"content":"Ext2的方法 Ext2 Methods","children":[{"type":"heading","depth":2,"payload":{"lines":[36,37]},"content":"Ext2超级块的操作 Ext2 Superblock Operations","children":[]},{"type":"heading","depth":2,"payload":{"lines":[38,39]},"content":"Ext2索引节点的操作 Ext2 Inode Operations","children":[]},{"type":"heading","depth":2,"payload":{"lines":[40,41]},"content":"Ext2的文件操作 Ext2 File Operations","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[42,43]},"content":"管理Ext2磁盘空间 Managing Ext2 Disk Space","children":[{"type":"heading","depth":2,"payload":{"lines":[44,45]},"content":"创建索引节点 Creating inodes","children":[]},{"type":"heading","depth":2,"payload":{"lines":[46,47]},"content":"删除索引节点 Deleting inodes","children":[]},{"type":"heading","depth":2,"payload":{"lines":[48,49]},"content":"数据块寻址 Data Blocks Addressing","children":[]},{"type":"heading","depth":2,"payload":{"lines":[50,51]},"content":"文件的洞 File Holes","children":[]},{"type":"heading","depth":2,"payload":{"lines":[52,53]},"content":"分配数据块 Allocating a Data Block","children":[]},{"type":"heading","depth":2,"payload":{"lines":[54,55]},"content":"释放数据块 Releasing a Data Block","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[56,57]},"content":"Ext3文件系统 The Ext3 Filesystem","children":[{"type":"heading","depth":2,"payload":{"lines":[58,59]},"content":"日志文件系统 Journaling Filesystems","children":[]},{"type":"heading","depth":2,"payload":{"lines":[60,61]},"content":"Ext3日志文件系统 The Ext3 Journaling Filesystem","children":[]},{"type":"heading","depth":2,"payload":{"lines":[62,63]},"content":"日志块设备层 The Journaling Block Device Layer","children":[{"type":"heading","depth":3,"payload":{"lines":[64,65]},"content":"日志记录 Log records","children":[]},{"type":"heading","depth":3,"payload":{"lines":[66,67]},"content":"原子操作处理 Atomic operation handles","children":[]},{"type":"heading","depth":3,"payload":{"lines":[68,69]},"content":"事务 Transactions","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[70,71]},"content":"日志如何工作 How Journaling Works","children":[]}]}]},null)</script>
+</body>
+</html>

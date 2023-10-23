@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/index.js"></script><script>(()=>{setTimeout(()=>{const{markmap:M,mm:ge}=window,me=new M.Toolbar;me.attach(ge);const fe=me.render();fe.setAttribute("style","position:absolute;bottom:20px;right:20px"),document.body.append(fe)})})()</script><script>((F,I,R,H)=>{const X=F();window.mm=X.Markmap.create("svg#mindmap",(I||X.deriveOptions)(H),R)})(()=>window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[0,1]},"content":"内核_进程通信_Process_Communication","children":[{"type":"heading","depth":1,"payload":{"lines":[2,3]},"content":"管道 Pipes","children":[{"type":"heading","depth":2,"payload":{"lines":[4,5]},"content":"使用管道 Using a Pipe","children":[]},{"type":"heading","depth":2,"payload":{"lines":[6,7]},"content":"管道数据结构 Pipe Data Structures","children":[{"type":"heading","depth":3,"payload":{"lines":[8,9]},"content":"pipefs特殊文件系统 The pipefs special filesystem","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[10,11]},"content":"创建和撤销管道 Creating and Destroying a Pipe","children":[]},{"type":"heading","depth":2,"payload":{"lines":[12,13]},"content":"从管道中读取数据 Reading from Pipe","children":[]},{"type":"heading","depth":2,"payload":{"lines":[14,15]},"content":"向管道中写入数据 Writing into a Pipe","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[16,17]},"content":"FIFOs","children":[{"type":"heading","depth":2,"payload":{"lines":[18,19]},"content":"创建并打开FIFO Creating and Opening a FIFO","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[20,21]},"content":"System V IPC","children":[{"type":"heading","depth":2,"payload":{"lines":[22,23]},"content":"使用IPC资源 Using an IPC Resource","children":[]},{"type":"heading","depth":2,"payload":{"lines":[24,25]},"content":"ipc()系统调用 The ipc() System Call","children":[]},{"type":"heading","depth":2,"payload":{"lines":[26,27]},"content":"IPC信号量 IPC Semaphores","children":[{"type":"heading","depth":3,"payload":{"lines":[28,29]},"content":"可取消的信号量操作 Undoable semaphore operations","children":[]},{"type":"heading","depth":3,"payload":{"lines":[30,31]},"content":"挂起请求的队列 The queue of pending requests","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[32,33]},"content":"IPC消息 IPC Messages","children":[]},{"type":"heading","depth":2,"payload":{"lines":[34,35]},"content":"IPC共享内存 IPC Shared Memory","children":[{"type":"heading","depth":3,"payload":{"lines":[36,37]},"content":"换出IPC共享内存区的页 Swapping out pages of IPC shared memory regions","children":[]},{"type":"heading","depth":3,"payload":{"lines":[38,39]},"content":"IPC共享内存区的请求调页 Demand paging for IPC shared memory regions","children":[]}]}]},{"type":"heading","depth":1,"payload":{"lines":[40,41]},"content":"POSIX消息队列 POSIX Message Queues","children":[]}]},null)</script>
+</body>
+</html>

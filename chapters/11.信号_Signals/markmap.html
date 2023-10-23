@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/index.js"></script><script>(()=>{setTimeout(()=>{const{markmap:M,mm:ge}=window,me=new M.Toolbar;me.attach(ge);const fe=me.render();fe.setAttribute("style","position:absolute;bottom:20px;right:20px"),document.body.append(fe)})})()</script><script>((F,I,R,H)=>{const X=F();window.mm=X.Markmap.create("svg#mindmap",(I||X.deriveOptions)(H),R)})(()=>window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[0,1]},"content":"内核_信号_Signals","children":[{"type":"heading","depth":1,"payload":{"lines":[2,3]},"content":"信号的作用 The Role of Signals","children":[{"type":"heading","depth":2,"payload":{"lines":[4,5]},"content":"传递信号前所执行的操作 Action Performed upon Delivering Signal","children":[]},{"type":"heading","depth":2,"payload":{"lines":[6,7]},"content":"POSIX信号和多线程应用 POSIX Signals and Multithreaded Applications","children":[]},{"type":"heading","depth":2,"payload":{"lines":[8,9]},"content":"与信号相关的数据结构 Data Structures Associated with Signals","children":[{"type":"heading","depth":3,"payload":{"lines":[10,11]},"content":"信号描述符和信号处理程序描述符 The signal descriptor and the signal handler descriptor","children":[]},{"type":"heading","depth":3,"payload":{"lines":[12,13]},"content":"sigaction 数据结构 The sigaction data structure","children":[]},{"type":"heading","depth":3,"payload":{"lines":[14,15]},"content":"挂起信号队列 The pending signal queues","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[16,17]},"content":"在信号数据结构上的操作 Operations on Signal Data Structures","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[18,19]},"content":"产生信号 Generating a Signal","children":[{"type":"heading","depth":2,"payload":{"lines":[20,21]},"content":"The specific_send_sig_info() Function","children":[]},{"type":"heading","depth":2,"payload":{"lines":[22,23]},"content":"The send_signal() Function","children":[]},{"type":"heading","depth":2,"payload":{"lines":[24,25]},"content":"The group_send_sig_info() Function","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[26,27]},"content":"传递信号 Delivering a Signal","children":[{"type":"heading","depth":2,"payload":{"lines":[28,29]},"content":"执行信号的缺省操作 Executing the Default Action for the Signal","children":[]},{"type":"heading","depth":2,"payload":{"lines":[30,31]},"content":"捕获信号 Catching the Signal","children":[{"type":"heading","depth":3,"payload":{"lines":[32,33]},"content":"建立帧 Setting up the frame","children":[]},{"type":"heading","depth":3,"payload":{"lines":[34,35]},"content":"检查信号标志 Evaluating the signal flags","children":[]},{"type":"heading","depth":3,"payload":{"lines":[36,37]},"content":"开始执行信号处理程序 Staring the signal handler","children":[]},{"type":"heading","depth":3,"payload":{"lines":[38,39]},"content":"终止信号处理程序 Terminating the signal handler","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[40,41]},"content":"系统调用的重新执行 Reexecution of System Calls","children":[{"type":"heading","depth":3,"payload":{"lines":[42,43]},"content":"重新执行被未捕获信号中断的系统调用 Restarting a system call interrupted by a non-caught signal","children":[]},{"type":"heading","depth":3,"payload":{"lines":[44,45]},"content":"为所捕获的信号重新执行系统调用 Restarting a system call for a caught signal","children":[]}]}]},{"type":"heading","depth":1,"payload":{"lines":[46,47]},"content":"与信号处理相关的系统调用 System Calls Related to Signal Handling","children":[{"type":"heading","depth":2,"payload":{"lines":[48,49]},"content":"The kill() System Call","children":[]},{"type":"heading","depth":2,"payload":{"lines":[50,51]},"content":"The tkill() and tgkill() System Calls","children":[]},{"type":"heading","depth":2,"payload":{"lines":[52,53]},"content":"改变信号的操作 Changing a Signal Action","children":[]},{"type":"heading","depth":2,"payload":{"lines":[54,55]},"content":"检查挂起的阻塞信号 Examining the Pending Blocked Signals","children":[]},{"type":"heading","depth":2,"payload":{"lines":[56,57]},"content":"修改阻塞信号的集合 Modifying the Set of Blocked Signals","children":[]},{"type":"heading","depth":2,"payload":{"lines":[58,59]},"content":"挂起进程 Suspending the Process","children":[]},{"type":"heading","depth":2,"payload":{"lines":[60,61]},"content":"实时信号的系统调用 System Calls for Real-Time Signals","children":[]}]}]},null)</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/index.js"></script><script>(()=>{setTimeout(()=>{const{markmap:M,mm:ge}=window,me=new M.Toolbar;me.attach(ge);const fe=me.render();fe.setAttribute("style","position:absolute;bottom:20px;right:20px"),document.body.append(fe)})})()</script><script>((F,I,R,H)=>{const X=F();window.mm=X.Markmap.create("svg#mindmap",(I||X.deriveOptions)(H),R)})(()=>window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[0,1]},"content":"内核_进程地址空间_Process_Address_Space","children":[{"type":"heading","depth":1,"payload":{"lines":[2,3]},"content":"进程的地址空间 The Process`s Address Space","children":[]},{"type":"heading","depth":1,"payload":{"lines":[4,5]},"content":"内存描述符 The Memory Descriptor","children":[{"type":"heading","depth":2,"payload":{"lines":[6,7]},"content":"内核线程的内存描述符 Memory Descriptor of Kernel Threads","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[8,9]},"content":"线性区 Memory Regions","children":[{"type":"heading","depth":2,"payload":{"lines":[10,11]},"content":"线性区数据结构 Memory Region Data Structures","children":[]},{"type":"heading","depth":2,"payload":{"lines":[12,13]},"content":"线性区访问权限 Memory Region Access Rights","children":[]},{"type":"heading","depth":2,"payload":{"lines":[14,15]},"content":"线性区的处理 Memory Region Handling","children":[{"type":"heading","depth":3,"payload":{"lines":[16,17]},"content":"查找给定地址的最邻近区 Finding the closed region to a given address: find_vma()","children":[]},{"type":"heading","depth":3,"payload":{"lines":[18,19]},"content":"查找一个与给定的地址区间相重叠的线性区 Finding a region that overlaps a given interval: find_vma_intersection()","children":[]},{"type":"heading","depth":3,"payload":{"lines":[20,21]},"content":"查找一个空闲的地址空间 Finding a free interval: get_unmapped_area()","children":[]},{"type":"heading","depth":3,"payload":{"lines":[22,23]},"content":"向内存描述符链表中插入一个线性区 Inserting a region in the memory descriptor list: insert_vm_struct()","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[24,25]},"content":"分配线性地址区间 Allocating a Linear Address Interval","children":[]},{"type":"heading","depth":2,"payload":{"lines":[26,27]},"content":"释放线性地址区间 Releasing a Linear Address Interval","children":[{"type":"heading","depth":3,"payload":{"lines":[28,29]},"content":"The do_munmap() function","children":[]},{"type":"heading","depth":3,"payload":{"lines":[30,31]},"content":"The split_vma() function","children":[]},{"type":"heading","depth":3,"payload":{"lines":[32,33]},"content":"The unmap_region() function","children":[]}]}]},{"type":"heading","depth":1,"payload":{"lines":[34,35]},"content":"缺页异常处理程序 Page Fault Exception Handler","children":[{"type":"heading","depth":2,"payload":{"lines":[36,37]},"content":"处理地址空间外的错误地址 Handling a Faulty Address Outside the Address Space","children":[]},{"type":"heading","depth":2,"payload":{"lines":[38,39]},"content":"处理地址空间内的错误地址 Handling a Faulty Address Inside the Address Space","children":[]},{"type":"heading","depth":2,"payload":{"lines":[40,41]},"content":"请求调页 Demand Paging","children":[]},{"type":"heading","depth":2,"payload":{"lines":[42,43]},"content":"写时复制 Copy On Write","children":[]},{"type":"heading","depth":2,"payload":{"lines":[44,45]},"content":"处理非连续内存区访问 Handling Noncontiguous Memory Area Accesses","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[46,47]},"content":"创建和删除进程的地址空间 Creating and Deleting a Process Address Space","children":[{"type":"heading","depth":2,"payload":{"lines":[48,49]},"content":"创建进程的地址空间 Creating a Process Address Space","children":[]},{"type":"heading","depth":2,"payload":{"lines":[50,51]},"content":"删除进程的地址空间 Deleting a Process Address Space","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[52,53]},"content":"堆的管理 Managing the Heap","children":[]}]},null)</script>
+</body>
+</html>

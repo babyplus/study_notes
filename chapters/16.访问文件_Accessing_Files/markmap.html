@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/index.js"></script><script>(()=>{setTimeout(()=>{const{markmap:M,mm:ge}=window,me=new M.Toolbar;me.attach(ge);const fe=me.render();fe.setAttribute("style","position:absolute;bottom:20px;right:20px"),document.body.append(fe)})})()</script><script>((F,I,R,H)=>{const X=F();window.mm=X.Markmap.create("svg#mindmap",(I||X.deriveOptions)(H),R)})(()=>window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[0,1]},"content":"内核_访问文件_Accessing_Files","children":[{"type":"heading","depth":1,"payload":{"lines":[2,3]},"content":"读写文件 Reading and Writing a File","children":[{"type":"heading","depth":2,"payload":{"lines":[4,5]},"content":"从文件中读取数据 Reading from a File","children":[{"type":"heading","depth":3,"payload":{"lines":[6,7]},"content":"普通文件的readpage方法 The readpage method for regular files","children":[]},{"type":"heading","depth":3,"payload":{"lines":[8,9]},"content":"块设备文件的readpage方法 The readpage method for block device files","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[10,11]},"content":"文件的预读 Read-Ahead of Files","children":[{"type":"heading","depth":3,"payload":{"lines":[12,13]},"content":"The page_cache_readahead() function","children":[]},{"type":"heading","depth":3,"payload":{"lines":[14,15]},"content":"The handle_ra_miss() function","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[16,17]},"content":"写入文件 Writing to a File","children":[{"type":"heading","depth":3,"payload":{"lines":[18,19]},"content":"普通文件的prepare_write和commit_write方法 The prepare_write and commit_write methods for regular files","children":[]},{"type":"heading","depth":3,"payload":{"lines":[20,21]},"content":"块设备文件的prepare_write和commit_write方法 The prepare_write and commit_write methods for block device files","children":[]}]},{"type":"heading","depth":2,"payload":{"lines":[22,23]},"content":"将脏页写到磁盘 Writing Dirty Pages to Disk","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[24,25]},"content":"内存映射 Memory Mapping","children":[{"type":"heading","depth":2,"payload":{"lines":[26,27]},"content":"内存映射的数据结构 Memory Mapping Data Structures","children":[]},{"type":"heading","depth":2,"payload":{"lines":[28,29]},"content":"创建内存映射 Creating a Memory Mapping","children":[]},{"type":"heading","depth":2,"payload":{"lines":[30,31]},"content":"撤销内存映射 Destroying a Memory Mapping","children":[]},{"type":"heading","depth":2,"payload":{"lines":[32,33]},"content":"内存映射的请求调页 Demand Paging for Memory Mapping","children":[]},{"type":"heading","depth":2,"payload":{"lines":[34,35]},"content":"把内存映射的脏页刷新到磁盘 Flushing Dirty Memory Mapping Pages to Disk","children":[]},{"type":"heading","depth":2,"payload":{"lines":[36,37]},"content":"非线性内存映射 Non-Linear Memory Mappings","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[38,39]},"content":"直接I/O映射 Direct I/O Transfers","children":[]},{"type":"heading","depth":1,"payload":{"lines":[40,41]},"content":"异步I/O Asynchronous I/O","children":[{"type":"heading","depth":2,"payload":{"lines":[42,43]},"content":"Linux 2.6 中的异步I/O Asynchronous I/O in Linux 2.6","children":[{"type":"heading","depth":3,"payload":{"lines":[44,45]},"content":"异步I/O环境 The asynchronous I/O context","children":[]},{"type":"heading","depth":3,"payload":{"lines":[46,47]},"content":"提交异步I/O操作 Submitting the asynchronous I/O operations","children":[]}]}]}]},null)</script>
+</body>
+</html>
