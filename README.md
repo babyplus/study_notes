@@ -280,15 +280,80 @@ Contrary to the hardware cache, the corresponding entries of the TLB need not be
 
 ## Linux中的分页 Paging in Linux
 
+Linux的进程处理很大程度上依赖于分页，线性地址到物理地址的自动转换使下面的设计目标变得可行：
+
+* 给每一个进程分配一块不同的物理地址空间，确保了可以有效地防止寻址错误
+* 区别页和页框
+
+每一个进程有它自己的页全局目录和自己的页表集。当发生进程切换时，Linux把cr3控制寄存器的内容保存在前一个执行进程的描述符中，然后把下一个要执行的描述符的值装入cr3控制寄存器中，当新进程重新开始在cpu上执行时，分页单元指向一组正确的页表。
+
 ### 线性地址字段 The Linear Address Fields
+
+* PAGE_SHIFT
+
+指定Offset字段的位数
+
+* PMD_SHIFT
+
+指定Offset字段和Table字段的总位数
+
+* PUD_SHIFT
+
+确定页上级目录能映射的区域大小的对数
+
+* PGDIR_SHIFT
+
+确定页全局目录项能映射的区域大小的对数
+
+* PTRS_PER_PTE,PTRS_PER_PMD,PTRS_PER_PUD,PTRS_PER_PGD
+
+用于计算页表、页中间目录、页上级目录和页全局目录表中表项的个数
 
 ### 页表处理 Page Table Handling
 
+pte_t、pmd_t、pud_t、pgd_t分别描述页表项、页中间目录项、页上级目录项和页全局目录项的格式。
+
+pgprot_t是另一个64位（PAE激活）或32位的数据类型，它表示与一个单独表项相关的保护标志。
+
+* 读页标志
+* 设置页标志
+* 对页表项操作的宏
+* 页分配函数
+
 ### 物理内存布局 Physical Memory Layout
+
+在初始化阶段，内核必须建立一个物理地址映射来指定哪些物理地址范围对内核可用而哪些不可用。
+
+一般来说，Linux内核安装在RAM中从物理地址0x00100000开始的地方，也就是说从第二个MB开始。
+
+描述内核物理内存布局的变量
+
+* num_physpages
+* totalram_pages
+* min_low_pfn
+* max_pfn
+* max_low_pfn
+* totalhigh_pages
+* highstart_pfn
+* highend_pfn
 
 ### 进程页表 Process Page Tables
 
+进程的线性地址空间被分成两部分：
+
+* 从0x00000000到0xbfffffff的线性地址，无论用户态还是内核态进程都可以寻址
+* 从0xc0000000到0xffffffff的线性地址，只有内核态进程可以寻址
+
 ### 内核页表 Kernel Page Tables
+
+内核维持着一组自己使用的页表，驻留在所谓的主内核页全局目录中。
+
+主内核页全局目录的最高目录项部分作为参考模型，为系统中每个普通进程对应的页全局目录项提供参考模型。
+
+初始化内核页表：
+
+* 创建一个有限的空间将内核装入RAM和对其初始化的核心数据结构
+* 内核充分利用剩余的RAM并适当地建立分页表
 
 #### 临时内核页表 Provisional kernel Page Tables
 
