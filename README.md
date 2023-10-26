@@ -120,7 +120,34 @@ All the lists of process descriptors are implemented by a single prio_array_t da
 
 ### 进程间的关系 Relationships Among Processes
 
+程序创建的进程具有父子关系。一个进程创建多个子进程时，则子进程之间具有兄弟关系。
+
+进程描述符中表示进程亲属关系的字段：
+
+* real_parent
+* parent
+* children
+* sibling
+
+进程之间还存在其他关系：一个进程可能是一个进程组或登录会话的领头进程，也可能是一个线程组的领头进程，还可能跟踪其他进程的执行。
+
+建立非亲属关系的进程描述符字段：
+
+* group_leader
+* signal->pgrp
+* tgid
+* signal->session
+* ptrace_children
+* ptrace_list
+
 #### pidhash表及链表 The pidhash table and chained lists
+
+内核需要能从进程的PID导出对应的进程描述符指针，顺序扫描进程链表并检查进程描述符的pid字段可行但是相当低效，为了加速查找引入四个散列表：
+
+* PIDTYPE_PID
+* PIDTYPE_TGID
+* PIDTYPE_PGID
+* PIDTYPE_SID
 
 ### 如何组织进程 How Processes Are Organized
 
