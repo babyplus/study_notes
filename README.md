@@ -188,11 +188,29 @@ If an interrupt or an exception occurred, the control unit does the following:
 
 ## 中断和异常处理程序的嵌套执行 Nested Execution of Exception and Interrupt Handles
 
+每个中断或异常都会引起一个内核控制路径，或者说代表当前进程在内核态执行单独的指令序列。
+
+当I/O设备发出一个中断时，相应的内核控制路径的第一部分指令就是那些把寄存器的内容保存在内核堆栈的指令，而最后一部分指令就是恢复寄存器内容并让CPU返回到用户态的那些指令。
+
 ## 初始化中断描述符表 Initiallizing the Interrupt Descriptor Table
+
+内核启用中断前，把IDT表的初始地址装到idtr寄存器，并初始化表中的每一项。
+
+int指令允许用户进程发出一个中断信号，为了防止用户模拟非法中断和异常，IDT的初始化必须非常小心，可以通过把中断和陷阱门描述符的DPL字段设置成0来实现。
 
 ### 中断门、陷阱门及系统门 Interrupt,Trap, and System Gates
 
+Intel提供了三种类型的中断描述符，而Linux进行了如下分类：
+
+* 中断门
+* 系统门
+* 系统中断门
+* 陷阱门
+* 任务门
+
 ### IDT的初步初始化 Preliminary Initialization of the IDT
+
+当计算机还运行在实模式时，IDT被初始化并由BIOS例程使用。一旦Linux接管，IDT就被移到RAM的另一个区域，并进行第二次初始化。
 
 ## 异常处理 Exception Handling
 
