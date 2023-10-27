@@ -132,9 +132,27 @@ xtime变量通常是每个节拍更新一次，也就是说，大约每秒更新
 
 ### 单处理器系统上的计时体系结构 Timekeeping Architecture in Uniprocessor Systems
 
+在单处理器系统上，所有与定时有关的活动都是由IRQ线0上的可编程间隔定时器产生的中断触发的。
+
 #### 初始化阶段 Initialization phase
 
+在内核初始化期间，time_init()函数被用来建立计时体系结构，通常执行以下操作：
+
+* 初始化xtime变量
+* 初始化wall_to_monotonic变量
+* 如果内核支持HPET，它将调用hpet_enable()函数来确认ACPI固件是否探测到了该芯片并将它的寄存器映射到了内存地址中。如果结果是肯定的，那么hpet_enable()将对HPET芯片的第一个定时器编程，使其以每秒1000次的频率引发IRQ 0处中断；否则，内核将使用PIT(该芯片已经被init_IRQ()函数编程，使得它以每秒1000次的频率引发IRQ 0处的中断。
+* 调用select_timer()来挑选系统中可利用的最好的定时器，并设置cur_timer变量
+* 调用setup_irq(0, &irq0)来创建与IRQ 0相应的中断门，IRQ 0引脚线连接着系统时钟中断源(PIT或者HPET)
+
 #### 时钟中断处理程序 The timer interrupt handler
+
+timer_interrupt()函数是PIT或者HPET的中断服务例程(ISR)：
+
+* 在xtime_lock顺序锁上产生一个write_seqlock()来保护与定时相关的内核变量
+* 执行cur_timer定时器对象的mark_offset方法
+* 调用do_timer_interrupt()函数
+* 调用write_sequnlock()释放xtime_lock顺序锁
+* 返回值1，报告中断已经被有效处理
 
 ### 多处理器系统上的计时体系结构 Timekeeping Architecture in Multiprocessor Systems
 
