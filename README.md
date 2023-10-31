@@ -80,9 +80,35 @@ Essentially, the controler plays two important roles:
 
 ## 设备驱动程序模型 The Device Driver Model
 
+系统中所有硬件设备由内核全权负责电源管理。
+
 ### sysfs文件系统 The sysfs Filesystem
 
+sysfs文件系统是一种特殊的文件系统，与/proc相似，通常被安装于/sys目录。
+
+/proc文件系统是首次被设计成允许用户态应用程序访问内核内部数据结构的一种文件系统，sysfs文件系统本质上与/proc有相同的目的，但是他还提供关于内核数据结构的附加信息。
+
+sysfs文件系统的目标是要展现设备驱动程序模型组件间的层次关系。该文件系统的相应高层目录：
+
+* block
+* devices
+* bus
+* drivers
+* class
+* power
+* firmware
+
 ### kobjects
+
+设备驱动程序模型的核心数据结构是一个普通的数据结构，叫做kobject，它与sysfs文件系统自然地绑定在一起：每个kobject对应于sys文件系统中的一个目录。
+
+kobject被嵌入一个叫做"容器"的更大对象中，容器描述设备驱动程序模型中的组件。
+
+将一个kobject嵌入容器中允许内核：
+
+* 为容器保持一个引用计数器
+* 维持容器的层次列表或组
+* 为容器的属性提供一种用户态查看的视图
 
 #### kobjects, ksets, and subsystems
 
