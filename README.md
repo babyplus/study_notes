@@ -174,13 +174,27 @@ The second approach is preferred by the kernel for three good reasons:
 
 ### 每CPU页框高速缓存 The Per-CPU Page Frame Cache
 
+内核经常请求和释放单个页框，为了提高系统性能，每个内存管理区定义了一个"每CPU"页框高速缓存。
+
+所有"每CPU"高速缓存包含一些预先分配的页框，他们被用于满足本地CPU发出的单一内存请求。
+
 #### 通过每CPU页框高速缓存分配页框 Allocating page frames through the per-CPU page frame caches
 
 #### 释放页框到每CPU页框高速缓存 Releasing page frames to the per-CPU page frame caches
 
 ### 管理区分配器 The Zone Allocator
 
+管理区分配器是内核页框分配器的前端。
+
+管理区分配器必须满足几个目标：
+
+* 它应当保护保留的页框池
+* 当内存不足且允许阻塞当前进程时，它应当触发页框回收算法；一旦某些页框被释放，管理区分配器将再次尝试分配
+* 如果可能，它应当保存小而珍贵的ZONE_DMA内存管理区。
+
 #### 释放一组页框 Releasing a group of page frames
+
+管理区分配器同样负责释放页框。
 
 ## 内存区管理 Memory Area Management
 
