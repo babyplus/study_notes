@@ -152,9 +152,36 @@ A real-time process is replaced by another process only when one of the followin
 
 ## 调度程序所使用的数据结构 Data Structures Used by the Scheduler
 
+进程链表链接所有的进程描述符，而运行队列链表链接所有的可运行进程的进程描述符，swapper进程（idle进程）除外。
+
 ### 数据结构runqueue The runqueue Data Structure
 
+系统中的每个CPU都有它自己的运行队列，所有的runqueue结构存放在runqueue每CPU变量中。
+
+系统中每个可运行进程属于且只属于一个运行队列。
+
+运行队列得arrays字段是一个包含两个prio_array_t结构的数组。每个数据结构都表示一个可运行进程的集合，包含了140个双向链表头、一个优先级位图和一个集合中所包含的进程数量的计数器。
+
 ### 进程描述符 Process Descriptor
+
+与调度程序相关的进程描述符字段
+
+* thread_info->flags
+* thread_info->cpu
+* state
+* prio
+* static_prio
+* run_list
+* array
+* sleep_avg
+* timestamp
+* last_ran
+* activated
+* policy
+* cpus_allowed
+* time_slice
+* first_time_slice
+* rt_priority
 
 ## 调度程序所使用的函数 Functions Used by the Scheduler
 
