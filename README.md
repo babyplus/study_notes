@@ -60,6 +60,15 @@ There are three ways in which a process can respond to a signal:
 
 ### POSIX信号和多线程应用 POSIX Signals and Multithreaded Applications
 
+POSIX 1003.1标准对多线程应用的信号处理有一些严格的要求：
+
+* 信号处理程序必须在多线程应用的所有线程之间共享；不过，每个线程必须要有自己的挂起信号掩码和阻塞信号掩码
+* POSIX库函数kill()和sigqueue()必须向所有的多线程应用而不是某个特殊的线程发送信号；所有由内核产生的信号同样如此
+* 每个发送给多线程应用的信号仅传送给一个线程，这个线程是由内核在从不会阻塞该信号的线程中随意选择出来的
+* 如果向多线程应用发送了一个致命的信号，那么内核将杀死该应用的所有线程，而不仅仅是杀死接收信号的那个线程
+
+为了遵循POSIX标准，Linux把多线程应用实现为一组属于同一个线程组的轻量级进程。
+
 ### 与信号相关的数据结构 Data Structures Associated with Signals
 
 #### 信号描述符和信号处理程序描述符 The signal descriptor and the signal handler descriptor
