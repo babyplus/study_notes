@@ -40,11 +40,40 @@ The system calls performs the following operations:
 
 ## 进入和退出系统调用 Entering and Exiting a System Call
 
-### 通过 ini $0x80 指令发出系统调用 Issuing a System Call via the int $0x80 Instruction
+本地应用可以通过两个不同的方式调用系统调用：
+
+* 执行int $0x80汇编指令
+* 执行sysenter汇编指令
+
+内核可以通过两种方式从系统调用退出：
+
+* 执行iret指令
+* 执行sysexit指令
+
+### 通过 int $0x80 指令发出系统调用 Issuing a System Call via the int $0x80 Instruction
+
+向量128（0x80）对应于内核入口点。
+
+在内核初始化期间调用的函数trap_init()，建立对应于向量128的中断描述符表表项。
+
+当用户态进程发出int $0x80指令时，CPU切换到内核态并开始从地址system_call处开始执行指令。
 
 #### The system_call() function
 
+* system_call()函数首先把系统调用号和这个异常处理程序可以用到的所有CPU寄存器保存到相应的栈中
+* 在ebx中存放当前进程的thread_info数据结构的地址
+* 检查是否有某一调试程序正在跟踪执行程序对系统调用的调用
+* 对用户态进程传递来的系统调用号进行有效性检查
+* 如果无效，则恢复在用户态的执行时并在eax中发现一个负的返回值
+* 如果有效，则调用与eax中所包含的系统调用号对应的特定服务例程
+
+分派表中的每个表项占4个字节，因此首先把系统调用号乘以4，再加上sys_call_table分派表的起始地址，然后从这个地址获取指向服务例程的指针，内核就能找到要调用的服务例程。
+
 #### 从系统调用退出 Exiting from the system call
+
+* system_call()函数从eax获得它的返回值，并把这个返回值存放在曾保存用户态eax寄存器值的那个栈单元的位置上
+* 关闭本地中断并检查当前进程的thread_info结构中的标志，若有任何一种标志被置1，那么就要在返回用户态之前完成一些工作
+* 最终跳转到restore_all标记处以恢复用户态进程的执行
 
 ### 通过sysenter指令发出系统调用 Issuing a System Call via the sysenter Instruction
 
