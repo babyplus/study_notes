@@ -1,4 +1,4 @@
-﻿# 进程地址空间_Process_Address_Space
+﻿# 内核_进程地址空间_Process_Address_Space
 
 *20230805*  
 
@@ -76,13 +76,25 @@ Each memory region consists of a set of pages that have consecutive page numbers
 
 ## 缺页异常处理程序 Page Fault Exception Handler
 
+Linux的缺页异常处理程序必须区分以下两种情况：由编程错误引起的异常，以及由引用属于进程地址空间但还尚未分配物理页框的页引起的异常。
+
 ### 处理地址空间外的错误地址 Handling a Faulty Address Outside the Address Space
 
 ### 处理地址空间内的错误地址 Handling a Faulty Address Inside the Address Space
 
 ### 请求调页 Demand Paging
 
+术语"请求调页"指的是一种动态内存分配技术，他把页框的分配推迟到不能在推迟为止，一直推迟到进程要访问的页不在RAM中，由此引起一个缺页异常。
+
+进程开始运行的时候并不访问其地址空间中的全部地址。
+
+程序的局部性原理保证了在程序执行的每个阶段，真正引用的进程页只有一小部分，因此临时用不着的页所在的页框可以由其他程序来使用。
+
 ### 写时复制 Copy On Write
+
+父进程和子进程共享页框而不是复制页框。
+
+无论父进程还是子进程何时试图写一个共享的页框，就产生一个异常，这时内核就把这个页复制到一个新的页框中并标记为可写。原来的页框仍然是写保护的，当其他进程试图写入时，内核检查写进程是否是这个页框的唯一属主，如果是，就把这个页框标记为对这个进程是可写的。
 
 ### 处理非连续内存区访问 Handling Noncontiguous Memory Area Accesses
 
