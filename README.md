@@ -98,6 +98,25 @@ When the kernel discovers a new disk in the system, it invokes the alloc_disk() 
 
 ### 提交请求 Submitting a Request
 
+执行bio_alloc()函数分配一个新的bio描述符。然后，内核通过设置一些字段值来初始化bio描述符：
+
+* 将bi_sector设为数据的起始扇区号
+* 将bi_size设为涵盖整个数据的扇区数目
+* 将bi_bdev设为块设备描述符的地址
+* 将bi_io_vec设为bio_vec结构数组的起始地址，数组中每个元素描述了I/O操作中的一个段
+* 将bi_vcnt设为bio中总的段数
+* 将bi_rw设为被请求操作的标志，指明数据传送方向
+* 将bi_end_io设为当bio上的I/O操作完成时所执行的完成程序的地址
+
+完成bio描述符初始化后，内核就调用通用块的主要入口generic_make_request()：
+
+* 检查bio->bi_sector没有超过块设备的扇区数
+* 获取与块设备相关的请求队列
+* 调用block_wait_queue_running()函数检查当前正在使用的I/O调度程序是否可以被动态取代
+* 调用blk_partition_remap()函数检查块设备是否指的是一个磁盘分区
+* 调用请求队列的make_request_fn方法将bio请求插入请求队列中
+* 返回
+
 ## I/O调度程序 The I/O Scheduler
 
 ### 请求队列描述符 Request Queue Descriptors
