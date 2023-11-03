@@ -18,6 +18,18 @@ For most filesystems, reading a page of data from a file is just a matter of fin
 
 ### 从文件中读取数据 Reading from a File
 
+generic_file_read()函数实现了几乎所有磁盘文件系统中的普通文件以及任何文件块设备文件的read()方法。
+
+* 函数初始化两个描述符，一个为local_iov，另一个为kiocb
+* 调用__generic_file_aio_read()方法并将刚填完的iovec和kiocb描述符地址传给它
+
+__generic_file_aio_read()是所有文件系统实现同步和异步读操作所使用的通用例程：
+
+* 调用access_ok()检查iovec描述符所描述的用户态缓存区是否有效
+* 建立一个读操作描述符，也就是一个read_descriptor_t类型的数据结构
+* 调用函数do_generic_file_read()
+* 返回拷贝到用户态缓冲区的字节数，即read_descriptor_t数据结构中written字段的值
+
 #### 普通文件的readpage方法 The readpage method for regular files
 
 #### 块设备文件的readpage方法 The readpage method for block device files
