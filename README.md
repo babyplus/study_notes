@@ -108,13 +108,21 @@ A few general rules adopted by the PFRA:
 
 ## 反向映射 Reverse Mapping
 
+PFRA的目标之一是能释放共享页框，反向映射指能够快速定位指向同一页框的所有页表项。
+
 ### 匿名页的反向映射 Reverse Mapping for Anonymous Pages
+
+匿名页经常是由几个进程共享的。
+
+将引用同一个页框的所有匿名页链接起来非常简单，即将该页框所在的匿名线性区存放一个在双向链表中。
 
 #### The try_to_unmap_anon() function
 
 #### The try_to_unmap_one() function
 
 ### 映射页的反向映射 Reverse Mapping for Mapped Pages
+
+映射页的面向对象反向映射所基于的思想很简单，访问相应映射页所在的线性区描述符。
 
 #### 优先搜索树 The priority search tree
 
