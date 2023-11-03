@@ -52,6 +52,12 @@ Kernel designers have implemented the page cache to fulfill two main requirement
 
 ### address_space对象 The address_space Object
 
+页高速缓存的核心结构是address_space对象，他是一个嵌入在页所有者的索引节点对象中的数据结构。
+
+高速缓存中的许多页可能属于同一个所有者，从而可能被链接到同一个address_space对象。
+
+每个页描述符都包括把页链接到页高速缓存的两个字段mapping和index。
+
 ### 基树 The Radix Tree
 
 ### 页高速缓存的处理函数 Page Cache Handling Functions
