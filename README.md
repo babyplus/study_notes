@@ -45,7 +45,7 @@ A logical address consists of two parts: a segment identifier and an offset that
 
 To make it easy to retrieve segment selectors quickly, the processor provides segmentation registers whose only purpose is to hold Segment Selectors.
 
-为了方便快速检索段选择器，处理器提供了段寄存器，其唯一目的是保存段选择器。
+为了方便快速检索段选择器，处理器提供了段寄存器，其唯一目的是保存段选择符。
 
 * cs 代码段寄存器
 * ss 栈段寄存器

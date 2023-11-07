@@ -1,0 +1,82 @@
+<mxfile>
+  <diagram name="总览" id="总览">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="常规分页 Regular Paging" id="常规分页 Regular Paging">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="拓展分页 Extended Paging " id="拓展分页 Extended Paging ">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="硬件保护方案 Hardware Protection Scheme" id="硬件保护方案 Hardware Protection Scheme">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="常规分页举例 An Example of Regular Paging" id="常规分页举例 An Example of Regular Paging">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="物理地址扩展（PAE）分页机制 The Physical Address Extension (PAE) Paging Machanism" id="物理地址扩展（PAE）分页机制 The Physical Address Extension (PAE) Paging Machanism">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="64位系统中的分页 Paging for 64-bit Architectures" id="64位系统中的分页 Paging for 64-bit Architectures">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="硬件高速缓存 Hardware Cache" id="硬件高速缓存 Hardware Cache">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="转换后援缓冲器（TLB）Translation Lookaside Buffer" id="转换后援缓冲器（TLB）Translation Lookaside Buffer">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="补充" id="补充">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

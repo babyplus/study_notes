@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2023-11-07T02:46:58.754Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" version="22.0.8" etag="jSBvOO-woAPosEvh4qYo" type="device" pages="5">
+  <diagram name="总览" id="总览">
+    <mxGraphModel dx="1221" dy="786" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DFM8hrsJiqpE9XfLRQs6-6" target="DFM8hrsJiqpE9XfLRQs6-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-6" value="逻辑地址" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="95" y="264" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-7" value="物理地址" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="677" y="264" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DFM8hrsJiqpE9XfLRQs6-8" target="DFM8hrsJiqpE9XfLRQs6-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-8" value="线性地址" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="386" y="264" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="DFM8hrsJiqpE9XfLRQs6-9" target="DFM8hrsJiqpE9XfLRQs6-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;startArrow=classic;startFill=1;dashed=1;dashPattern=1 1;" edge="1" parent="1" source="DFM8hrsJiqpE9XfLRQs6-9" target="DFM8hrsJiqpE9XfLRQs6-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-9" value="分段单元" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="211" y="249" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="DFM8hrsJiqpE9XfLRQs6-10" target="DFM8hrsJiqpE9XfLRQs6-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;startArrow=classic;startFill=1;dashed=1;dashPattern=1 1;" edge="1" parent="1" source="DFM8hrsJiqpE9XfLRQs6-10" target="DFM8hrsJiqpE9XfLRQs6-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-10" value="分页单元" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="502" y="249" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-19" value="硬件电路" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="241" y="445" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="DFM8hrsJiqpE9XfLRQs6-23" target="DFM8hrsJiqpE9XfLRQs6-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DFM8hrsJiqpE9XfLRQs6-23" value="内存管理单元" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="502" y="528" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="逻辑地址 Logical addresses" id="逻辑地址 Logical addresses">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="线性地址 Linear addresses" id="线性地址 Linear addresses">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="物理地址 Physical addresses" id="物理地址 Physical addresses">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="补充" id="补充">
+    <mxGraphModel grid="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

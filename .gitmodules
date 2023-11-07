@@ -1,0 +1,4 @@
+[submodule "md2drawio"]
+	path = md2drawio
+	url = git@github.com:babyplus/tools.git
+	branch = awk_md2drawio
